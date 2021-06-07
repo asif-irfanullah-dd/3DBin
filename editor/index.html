@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="UIDom.css">
+    <link rel="stylesheet" href="../example/styles.css">
+    
+    <title>Freight Packer API editor</title>
+
+    <!-- API files, dependencies (3rd party code) and API -->
+    <script src="../build/FreightPacker-dev-dependencies.js" ></script>
+
+    <!-- Editor dependencies -->
+    <script src="./lib/FBXLoader.js"></script>
+    <script src="./lib/BufferGeometryUtils.js"></script>
+    <script src="../example/mockup/lib/crel.js"></script>
+    <script src="../example/mockup/lib/dat.gui.js"></script>
+    <script src="../example/mockup/lib/FileSaver.js"></script>
+
+    <!-- Editor -->
+    <script src="./FPEditor.js" ></script>
+
+    <script>
+      window.addEventListener("load", function() {
+        var guiElement = document.getElementById('fp-gui');
+        var viewElement = document.getElementById('fp-view');
+        new FPEditor(guiElement, viewElement);
+      });
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="columns">
+      <div class="left">
+        <div id="fp-gui">
+          <h2>Editor</h2>
+        </div>
+      </div>
+      <div class="right">
+        <!-- Container div -->
+        <div id="fp-view"></div>
+      </div>
+    </div>
+
+  </body>
+
+  <div id="wizard-elements" style="display: none; background-color: grey; border-top:1px solid #000;">
+    <div id="loadRef" style="color: #ffffff;">
+      <p>Load reference 3D model:</p>
+      <button id="loadBtn">Load file (ascii FBX)</button>
+    </div>
+    <div id="configureSpace" style="color: #ffffff;">
+      <p>Configure packing space:</p>
+      <wizard-action id="surface" label="Set platform surface"></wizard-action>
+      </br>
+      <wizard-action id="input" disabled="true" label="Input loadable dimensions"></wizard-action>
+      </br>
+      <wizard-action id="side" disabled="true" label="Pick loading side"></wizard-action>
+      </br>
+      <button id="nextBtn" disabled="true">Next</button>
+    </div>
+    <div id="export" style="color: #ffffff;">
+      <p>Save configuration:</p>
+      <button id="exportBtn">Save file</button>
+    </div> 
+  </div>
+
+</html>

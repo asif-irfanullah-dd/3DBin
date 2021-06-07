@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Freight Packer API example - UMD</title>
+
+    <!-- API UMD -->
+    <script src="../build/FreightPacker-loader.js" ></script>
+
+    <!-- Example (~UI) dependencies (not of interest) -->
+    <script src="./mockup/lib/jquery-3.3.1.min.js"></script>
+    <script src="./mockup/lib/dat.gui.js"></script>
+    <script src="./mockup/lib/datGUIExtensions.js"></script>
+    <script src="./mockup/lib/crel.js"></script>
+    <script src="./mockup/lib/FileSaver.js"></script>
+    <script src="./mockup/lib/houdini.js"></script>
+    <script src="./mockup/lib/JSONFormatter.js"></script>
+    <script src="./mockup/IO.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="columns">
+      <div class="left">
+        <div id="fp-gui">
+          <h3>Mockup UI</h3>
+        </div>
+      </div>
+      <div class="right">
+
+        <!-- Viewer div -->
+        <div id="fp-view"></div>
+
+      </div>
+      <div class="rightPane">
+
+        <!-- Log div -->
+        <div id="fp-log"></div>
+
+        <!-- Standard unsupported webgl message -->
+        <div id="no-webgl" style="display:none; position:absolute; top:20px; background-color:#bbb; color:#000;">
+          Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>.<br/>
+          Find out how to get it <a href="http://get.webgl.org/">here</a>
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+
+</html>

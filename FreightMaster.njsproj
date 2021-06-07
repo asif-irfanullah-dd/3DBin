@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{2c174e16-c041-423b-a086-ec079cbe5c9d}</ProjectGuid>
+        <ProjectHome>.</ProjectHome>
+        <ProjectView>ShowAllFiles</ProjectView>
+        <StartupFile />
+        <WorkingDirectory>.</WorkingDirectory>
+        <OutputPath>.</OutputPath>
+        <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
+        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+    <ItemGroup>
+        <None Include="jsconfig.json" />
+        <Content Include="package-lock.json" />
+        <Content Include="package.json" />
+        <Content Include="typings.json" />
+        <Content Include="README.md" />
+        <Content Include="build\Readme.md" />
+        <Content Include="build\FreightPacker-dev-dependencies.js" />
+        <Content Include="build\FreightPacker-dev.js" />
+        <Content Include="build\FreightPacker-loader.js" />
+        <Content Include="build\FreightPacker.js" />
+        <Content Include="editor\index.html" />
+        <Content Include="editor\UIDom.css" />
+        <Content Include="editor\FPEditor.js" />
+        <Content Include="example\index-umd.html" />
+        <Content Include="example\index.html" />
+        <Content Include="example\styles.css" />
+        <Content Include="example\Example.js" />
+        <Content Include="src\dev.js" />
+        <Content Include="src\FreightPacker.js" />
+        <Content Include="src\loader.js" />
+        <Content Include="test\setup-jest.js" />
+        <Content Include="UIX\CargoScreen1.png" />
+        <Content Include="webpack\base.config.js" />
+        <Content Include="webpack\dev.config.js" />
+        <Content Include="webpack\editor.config.js" />
+        <Content Include="webpack\lib.config.js" />
+        <Content Include="webpack\loader.config.js" />
+        <Content Include="webpack\prod.config.js" />
+        <Content Include="editor\lib\BufferGeometryUtils.js" />
+        <Content Include="editor\lib\FBXLoader.js" />
+        <Content Include="example\mockup\ExampleUI.js" />
+        <Content Include="example\mockup\IO.js" />
+        <Content Include="example\mockup\elements\Elements.js" />
+        <Content Include="example\mockup\lib\crel.js" />
+        <Content Include="example\mockup\lib\dat.gui.js" />
+        <Content Include="example\mockup\lib\datGUIExtensions.js" />
+        <Content Include="example\mockup\lib\FileSaver.js" />
+        <Content Include="example\mockup\lib\houdini.js" />
+        <Content Include="example\mockup\lib\jquery-3.3.1.min.js" />
+        <Content Include="example\mockup\lib\JSONFormatter.js" />
+        <Content Include="example\mockup\lib\Pizzicato.js" />
+        <Content Include="example\mockup\lib\stats.min.js" />
+        <Content Include="local_modules\freight-packer-lib-bundle\package-lock.json" />
+        <Content Include="local_modules\freight-packer-lib-bundle\package.json" />
+        <Content Include="local_modules\freight-packer-lib-bundle\dev.js" />
+        <Content Include="local_modules\freight-packer-lib-bundle\index.js" />
+        <Content Include="local_modules\freight-packer-lib-bundle\lib\three\three-91.js" />
+        <Content Include="resources\config\flatdeck48.json" />
+        <Content Include="resources\config\flatdeck53.json" />
+        <Content Include="resources\textures\orthoviews-map.png" />
+        <Content Include="resources\textures\checkers.jpg" />
+        <Content Include="resources\textures\scaleref-alphaMap.jpg" />
+        <Content Include="src\api\App.js" />
+        <Content Include="src\api\Constants.js" />
+        <Content Include="src\api\Resources.js" />
+        <Content Include="src\api\Types.js" />
+        <Content Include="src\api\UX.js" />
+        <Content Include="src\min-dependencies\main.js" />
+        <Content Include="src\templates\Editor.js" />
+        <Content Include="src\templates\Namespace.js" />
+        <Content Include="src\api\components\CargoInput.js" />
+        <Content Include="src\api\components\LightDispatcher.js" />
+        <Content Include="src\api\components\PackerInterface.js" />
+        <Content Include="src\api\components\PackingSpaceInput.js" />
+        <Content Include="src\api\components\User.js" />
+        <Content Include="src\api\components\Visualization.js" />
+        <Content Include="src\api\debug\Debug.js" />
+        <Content Include="src\api\debug\RuntimeTester.js" />
+        <Content Include="src\api\packer\Cargo.js" />
+        <Content Include="src\api\packer\CargoGroup.js" />
+        <Content Include="src\api\packer\CargoList.js" />
+        <Content Include="src\api\packer\Packer.js" />
+        <Content Include="src\api\packer\PackingSpace.js" />
+        <Content Include="src\api\scene\Camera.js" />
+        <Content Include="src\api\scene\Controller.js" />
+        <Content Include="src\api\scene\Renderer.js" />
+        <Content Include="src\api\scene\Transform.js" />
+        <Content Include="src\api\utils\Capabilities.js" />
+        <Content Include="src\api\utils\Sequence.js" />
+        <Content Include="src\api\view\CargoBoxView.js" />
+        <Content Include="src\api\view\CargoListView.js" />
+        <Content Include="src\api\view\CargoView.js" />
+        <Content Include="src\api\view\ContainerView.js" />
+        <Content Include="src\api\view\EntryInputView.js" />
+        <Content Include="src\api\view\HUDView.js" />
+        <Content Include="src\api\view\OrthoviewsNavigator.js" />
+        <Content Include="src\api\view\PackedCargoBoxView.js" />
+        <Content Include="src\api\view\PackingSpaceView.js" />
+        <Content Include="src\api\view\PackResultView.js" />
+        <Content Include="src\api\view\SceneSetup.js" />
+        <Content Include="src\api\view\View.js" />
+        <Content Include="src\api\components\assets\Asset.js" />
+        <Content Include="src\api\components\assets\ColorTemplate.js" />
+        <Content Include="src\api\components\box\BoxEntry.js" />
+        <Content Include="src\api\components\box\Dimensions.js" />
+        <Content Include="src\api\components\box\PackingProperty.js" />
+        <Content Include="src\api\components\common\CargoEntry.js" />
+        <Content Include="src\api\components\common\TextField.js" />
+        <Content Include="src\api\packer\afit\AFitTest.js" />
+        <Content Include="src\api\packer\container\Container.js" />
+        <Content Include="src\api\packer\container\ContainingVolume.js" />
+        <Content Include="src\api\packer\container\Volume.js" />
+        <Content Include="src\api\packer\cubX\CUB.js" />
+        <Content Include="src\api\packer\cubX\CUBDebug.js" />
+        <Content Include="src\api\packer\afit\components\Container.js" />
+        <Content Include="src\api\packer\afit\components\Item.js" />
+        <Content Include="src\api\packer\cubX\core\Components.js" />
+        <Content Include="src\api\packer\cubX\core\Math2D.js" />
+        <Content Include="src\api\packer\cubX\core\PackedComponents.js" />
+        <Content Include="src\api\packer\cubX\core\Region.js" />
+        <Content Include="src\api\packer\cubX\core\RegionsTree.js" />
+        <Content Include="src\api\packer\cubX\heuristics\HeuParametric1.js" />
+        <Content Include="src\api\packer\cubX\heuristics\HeuRegular.js" />
+        <Content Include="src\api\packer\cubX\heuristics\Heuristic.js" />
+        <Content Include="src\api\utils\cik\Logger.js" />
+        <Content Include="src\api\utils\cik\NaNRecovery.js" />
+        <Content Include="src\api\utils\cik\Pool.js" />
+        <Content Include="src\api\utils\cik\Quality.js" />
+        <Content Include="src\api\utils\cik\Signaler.js" />
+        <Content Include="src\api\utils\cik\Tween.js" />
+        <Content Include="src\api\utils\cik\Utils.js" />
+        <Content Include="src\api\utils\cik\Utils3D.js" />
+        <Content Include="src\api\utils\cik\config\Config.js" />
+        <Content Include="src\api\utils\cik\config\Control3D.js" />
+        <Content Include="src\api\utils\cik\config\datGUIConsole.js" />
+        <Content Include="src\api\utils\cik\config\datGUIExtensions.js" />
+        <Content Include="src\api\utils\cik\config\Smart.js" />
+        <Content Include="src\api\utils\cik\config\UIUtils.js" />
+        <Content Include="src\api\utils\cik\input\Input.js" />
+        <Content Include="src\api\utils\cik\input\RaycastGroup.js" />
+        <Content Include="src\api\utils\cik\input\UpdateComponent.js" />
+        <Content Include="src\api\utils\cik\transitions\Transition.js" />
+        <Content Include="src\api\view\components\FloatingShelf.js" />
+        <Content Include="src\api\view\components\Fonts.js" />
+        <Content Include="src\api\view\components\Musipack.js" />
+        <Content Include="src\api\view\components\Outline.js" />
+        <Content Include="src\api\view\components\Slider3D.js" />
+        <Content Include="src\api\view\components\SliderBox.js" />
+        <Content Include="src\api\view\components\TextLabelView.js" />
+        <Content Include="src\api\view\dom\DomUI.js" />
+        <Content Include="src\min-dependencies\lib\keypress.js" />
+        <Content Include="src\min-dependencies\lib\three\controls\OrbitControls.js" />
+        <Content Include="src\min-dependencies\lib\three\controls\TransformControls.js" />
+        <Content Include="src\min-dependencies\lib\three\utils\BufferGeometryUtils.js" />
+        <Content Include="src\templates\editors\ActiveEditor.js" />
+        <Content Include="src\templates\ui\Dom.js" />
+        <Content Include="src\templates\ui\Element.js" />
+        <Content Include="src\templates\utils\DirectedRect.js" />
+        <Content Include="src\templates\utils\Feedback.js" />
+        <Content Include="src\templates\utils\IO.js" />
+        <Content Include="src\templates\utils\OptimizedMultiMat.js" />
+        <Content Include="src\templates\utils\SurfaceUtils.js" />
+        <Content Include="src\templates\editors\containersEditor\ContainersEditor.js" />
+        <Content Include="src\templates\editors\wizard\Wizard.js" />
+        <Content Include="src\templates\editors\wizard\WizardStep.js" />
+        <Content Include="src\templates\editors\wizard\WizardTest.js" />
+        <Content Include="src\templates\editors\containersEditor\wizard\ConfigureSpaceStep.js" />
+        <Content Include="src\templates\editors\containersEditor\wizard\ContainersEditorWizard.js" />
+        <Content Include="src\templates\editors\containersEditor\wizard\ExportStep.js" />
+        <Content Include="src\templates\editors\containersEditor\wizard\LoadRefStep.js" />
+        <Content Include="src\templates\ui\elements\Draggable.js" />
+        <Content Include="src\templates\ui\elements\WizardAction.js" />
+        <Content Include="test\unit\Constants.tests.js" />
+        <Content Include="test\unit\components\Dimensions.test.js" />
+        <Content Include="typings\globals\three\typings.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="build" />
+        <Folder Include="editor" />
+        <Folder Include="editor\lib" />
+        <Folder Include="example" />
+        <Folder Include="example\mockup" />
+        <Folder Include="example\mockup\elements" />
+        <Folder Include="example\mockup\lib" />
+        <Folder Include="FreightMaster" />
+        <Folder Include="FreightMaster\FreightMaster" />
+        <Folder Include="FreightMaster\NodejsApp1" />
+        <Folder Include="local_modules" />
+        <Folder Include="local_modules\freight-packer-lib-bundle" />
+        <Folder Include="local_modules\freight-packer-lib-bundle\lib" />
+        <Folder Include="local_modules\freight-packer-lib-bundle\lib\three" />
+        <Folder Include="NodejsApp1" />
+        <Folder Include="resources" />
+        <Folder Include="resources\config" />
+        <Folder Include="resources\models" />
+        <Folder Include="resources\textures" />
+        <Folder Include="src" />
+        <Folder Include="src\api" />
+        <Folder Include="src\api\components" />
+        <Folder Include="src\api\components\assets" />
+        <Folder Include="src\api\components\box" />
+        <Folder Include="src\api\components\common" />
+        <Folder Include="src\api\debug" />
+        <Folder Include="src\api\packer" />
+        <Folder Include="src\api\packer\afit" />
+        <Folder Include="src\api\packer\afit\components" />
+        <Folder Include="src\api\packer\container" />
+        <Folder Include="src\api\packer\cubX" />
+        <Folder Include="src\api\packer\cubX\core" />
+        <Folder Include="src\api\packer\cubX\heuristics" />
+        <Folder Include="src\api\scene" />
+        <Folder Include="src\api\utils" />
+        <Folder Include="src\api\utils\cik" />
+        <Folder Include="src\api\utils\cik\config" />
+        <Folder Include="src\api\utils\cik\input" />
+        <Folder Include="src\api\utils\cik\transitions" />
+        <Folder Include="src\api\view" />
+        <Folder Include="src\api\view\components" />
+        <Folder Include="src\api\view\dom" />
+        <Folder Include="src\min-dependencies" />
+        <Folder Include="src\min-dependencies\lib" />
+        <Folder Include="src\min-dependencies\lib\three" />
+        <Folder Include="src\min-dependencies\lib\three\controls" />
+        <Folder Include="src\min-dependencies\lib\three\utils" />
+        <Folder Include="src\templates" />
+        <Folder Include="src\templates\editors" />
+        <Folder Include="src\templates\editors\containersEditor" />
+        <Folder Include="src\templates\editors\containersEditor\wizard" />
+        <Folder Include="src\templates\editors\wizard" />
+        <Folder Include="src\templates\ui" />
+        <Folder Include="src\templates\ui\elements" />
+        <Folder Include="src\templates\utils" />
+        <Folder Include="test" />
+        <Folder Include="test\unit" />
+        <Folder Include="test\unit\components" />
+        <Folder Include="typings" />
+        <Folder Include="typings\globals" />
+        <Folder Include="typings\globals\three" />
+        <Folder Include="UIX" />
+        <Folder Include="webpack" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+    <ProjectExtensions>
+        <VisualStudio>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+            <WebProjectProperties>
+              <UseIIS>False</UseIIS>
+              <AutoAssignPort>True</AutoAssignPort>
+              <DevelopmentServerPort>0</DevelopmentServerPort>
+              <DevelopmentServerVPath>/</DevelopmentServerVPath>
+              <IISUrl>http://localhost:48022/</IISUrl>
+              <NTLMAuthentication>False</NTLMAuthentication>
+              <UseCustomServer>True</UseCustomServer>
+              <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+              <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+            </WebProjectProperties>
+          </FlavorProperties>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+            <WebProjectProperties>
+              <StartPageUrl>
+              </StartPageUrl>
+              <StartAction>CurrentPage</StartAction>
+              <AspNetDebugging>True</AspNetDebugging>
+              <SilverlightDebugging>False</SilverlightDebugging>
+              <NativeDebugging>False</NativeDebugging>
+              <SQLDebugging>False</SQLDebugging>
+              <ExternalProgram>
+              </ExternalProgram>
+              <StartExternalURL>
+              </StartExternalURL>
+              <StartCmdLineArguments>
+              </StartCmdLineArguments>
+              <StartWorkingDirectory>
+              </StartWorkingDirectory>
+              <EnableENC>False</EnableENC>
+              <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+            </WebProjectProperties>
+          </FlavorProperties>
+        </VisualStudio>
+    </ProjectExtensions>
+</Project>

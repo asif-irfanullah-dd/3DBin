@@ -1,0 +1,49 @@
+{
+  "name": "freight-packer",
+  "version": "0.1.0",
+  "description": "Freight packing tool",
+  "main": "src/FreightPacker.js",
+  "scripts": {
+    "compile": "webpack",
+    "lib": "SET NODE_ENV=development && webpack --config webpack/lib.config.js",
+    "editor": "SET NODE_ENV=development && webpack --config webpack/editor.config.js",
+    "example": "SET NODE_ENV=development && webpack --config webpack/dev.config.js",
+    "build": "SET NODE_ENV=production && webpack --config webpack/prod.config.js",
+    "loader": "SET NODE_ENV=development && webpack --config webpack/loader.config.js",
+    "test": "jest",
+    "watch": "jest --watch"
+  },
+  "keywords": [
+    "threejs",
+    "webpack",
+    "babel"
+  ],
+  "author": "Chady Karlitch",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://Chadiik@bitbucket.org/Chadiik/freight-packer.git"
+  },
+  "dependencies": {
+    "express": "~4.17.x",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.6.1",
+    "freight-packer-lib-bundle": "file:local_modules/freight-packer-lib-bundle",
+    "regenerator-runtime": "^0.12.1",
+    "webpack": "^3.9.1",
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-merge": "^4.1.4"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "jest": "^23.6.0",
+    "raw-loader": "^0.5.1"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFiles": [
+      "./test/setup-jest.js"
+    ]
+  }
+}
