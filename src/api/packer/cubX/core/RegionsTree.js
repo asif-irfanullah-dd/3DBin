@@ -1,6 +1,6 @@
 import { epsilon, smallValue, smallValueSqrt, reduceRectangles } from "./Math2D";
 import Region from "./Region";
-
+import OccupiedRegion from "./OccupiedRegion"
 import { debugClear, debugLog, debugRegion, sleep, format } from '../CUBDebug';
 
 /** RegionFindCallback
@@ -17,10 +17,20 @@ import { debugClear, debugLog, debugRegion, sleep, format } from '../CUBDebug';
 
 const minRegionAxis = smallValue;
 
+function sortByN(a, b){
+    if(isNaN(a.n) || isNaN(b.n)) return 0;
+
+    if(a.n < b.n) return -1;
+    if(a.n > b.n) return 1;
+    return 0;
+}
+//function occupyRegionConstructor(region, item){ return { region: region, item: item }; }
+var tempRegion = new Region();
+var tempOccupiedRegion = new OccupiedRegion();
 class RegionsTree{
     /** @param {Region} root */
     constructor(root){
-        this.regions = [root];
+        this.regions = [root];        
     }
 
     /** @param {Number} index */
@@ -31,23 +41,22 @@ class RegionsTree{
     /** @param {RegionFindCallback} callback @param {*} thisArg */
     Find(callback, thisArg){
         let numRegions = this.regions.length;
-
-        for(let iRegion = 0; iRegion < numRegions; iRegion++){
-            let region = this.regions[iRegion];
-            let search = callback.call(thisArg, region);
-            if(search) return search;
-        }
-
+        for(let iRegion = 0; iRegion < numRegions; iRegion++){            
+            let region = this.regions[iRegion];            
+                let search = callback.call(thisArg, region);
+                if(search) return search;                
+            }
         return false;
     }
 
+    
+    
     /** @param {Region} region * @param {Region} fit * @returns {Boolean} false if region has been deleted */
     Occupy(region, fit){
 
-        // Subtracts fit from region and calculates new bounding regions
+        
         var newRegions = region.Subtract(fit, minRegionAxis);
-
-        // Add new bounding regions if any
+        
         if(newRegions) this.regions.push(...newRegions);
 
         // Check that region is still valid, otherwise remove it
@@ -71,6 +80,8 @@ class RegionsTree{
 
         return true;
     }
+
+    
 
     /** @param {Number} width */
     ProcessRegionsPreferredX(width){
@@ -164,7 +175,7 @@ class RegionsTree{
                 this.regions.push(newRegion);
             }
         }
-    }
+    }    
 
     ProcessRegionsForZeroRegions(){
         let regions = this.regions;
@@ -176,6 +187,27 @@ class RegionsTree{
             }
         }
     }
+    
+    AddRegion(newRegions)
+    {
+        
+        if(newRegions) {
+            let OnTopOfRegions = [];
+            for(let iRegion = 0; iRegion < this.regions.length; iRegion++){
+                if(tempOccupiedRegion.OnTopRegion(newRegions,this.regions[iRegion]))
+                {
+                    OnTopOfRegions.push(this.regions[iRegion].level);
+                }
+            }
+            OnTopOfRegions.sort(function(a, b){return a-b});
+            let level = OnTopOfRegions.pop();
+            let dummy = new OccupiedRegion(newRegions.x, newRegions.y,newRegions.z,newRegions.width ,newRegions.height,newRegions.length, newRegions.ref, level+1, 0)
+            this.regions.push(dummy);
+            return true;
+        }
+        return false;
+    }   
+ 
 
     ProcessRegionsEnclosed(){
         var regions = this.regions;

@@ -34,15 +34,25 @@ class Region{
     constructor(x, y, z, width, height, length, preferredX){
         this.Set(x, y, z, width, height, length, preferredX);
         this.SetWeights(0, maxWeightValue, maxWeightValue);
+        return this;
     }
-
+    
+    OnTopRegion(regionA, regionB){
+        var xB = regionB.x, yB = regionB.y, zB = regionB.z;
+        var wB = regionB.width, hB = regionB.height, lB = regionB.length;
+        var xT = regionA.x, yT = regionA.y, zT = regionA.z;
+        var wT = regionA.width, hT = regionA.height, lT = regionA.length;
+        if (xT > xB - wT  && xT < xB + wB + wT  && zT > zB - lT  && zT < zB + lB + lT && yT === yB + hB) return true;
+        else return false;       
+    }
+    
     /**
      * @param {Number} x * @param {Number} y * @param {Number} z * @param {Number} width * @param {Number} height * @param {Number} length * @param {Number} preferredX 
      */
     Set(x, y, z, width, height, length, preferredX){
         this.x = x; this.y = y; this.z = z;
         this.width = width; this.height = height; this.length = length;
-        this.preferredX = preferredX;
+        this.preferredX = preferredX;        
         return this;
     }
     
@@ -132,27 +142,53 @@ class Region{
         return x <= other.x + other.width && x + w >= other.x
                 && y <= other.y + other.height && y + h >= other.y 
                 && z <= other.z + other.length && z + l >= other.z;
-    }
+    }    
+
+    
 
     /** @param {Number} offset offsets the region by this before checking * @param {Number} width * @param {Number} height * @param {Number} length
      * @param {Number} weight @param {Boolean} grounded
      * @param {Region} [result]
      */
-    FitTest(offset, width, height, length, weight, grounded, result){
-        if(!result) result = tempRegion;
-
+    FitTest(offset, width, height, length, weight, grounded, occupiedRegions, category){
+        let result = tempRegion;
+        let OnTopOfRegions = [];
+        let validRegion = true;
+        let level = 0;
+        let TopRegion = new Region(this.x, this.y, this.z, width, height, length, 0);
+        for(let iRegion = 0; iRegion < occupiedRegions.length; iRegion++){
+            let regionCheck = new Region(occupiedRegions[iRegion].x, occupiedRegions[iRegion].y, occupiedRegions[iRegion].z, occupiedRegions[iRegion].width, occupiedRegions[iRegion].height, occupiedRegions[iRegion].length, 0);
+            if(this.OnTopRegion(TopRegion, regionCheck))
+                {
+                    OnTopOfRegions.push(occupiedRegions[iRegion].level);
+                }
+        }
+        if(OnTopOfRegions.length>0){
+            OnTopOfRegions.sort(function(a,b) {
+                return a - b;
+            }
+            )
+            level = OnTopOfRegions.pop();
+        }
+              
+        if(level > 3 ){
+            if(category === 'O2' || category === 'O3' || category === 'S1') validRegion = false;
+                      
+        } 
+      
         if(grounded && this.y > smallValue) return false;
 
         // Check that all dimensions fit
         let fit = width < this.width + offset * 2 && height < this.height + offset * 2 && length < this.length + offset * 2;
-        if(fit){
+
+        if(fit && validRegion){
 
             let weightFit = weight <= this.weightCapacity;
             if(weightFit){
 
                 // Calculate x based on preferred side
-                let x = this.preferredX !== 0 ? this.x + this.width - width : this.x;
-                result.Set(x, this.y, this.z, width, height, length, this.preferredX);
+                let x = this.x ;
+                result.Set(x, this.y, this.z, width, height, length, 0);
                 result.SetWeights(weight, 0, maxWeightValue);
                 return result;
             }
@@ -162,7 +198,7 @@ class Region{
     }
 
     /** @param {Region} region * @param {Number} minRegionAxis */
-    Subtract(region, minRegionAxis){
+    Subtract(region, minRegionAxis){   //minRegionAxis = smallValue;
         /** @type {Array<Region>} */
         var newRegions;
         
@@ -186,8 +222,7 @@ class Region{
             newRegions.push(west);
         }
 
-        // Calculate a new over/up region
-        console.log("region up");
+        // Calculate a new over/up region        
         axis = region.y + region.height;
         size = this.y + this.height - axis;
         if(size > minRegionAxis){

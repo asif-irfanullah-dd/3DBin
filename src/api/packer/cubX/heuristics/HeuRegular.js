@@ -20,6 +20,19 @@ class HeuRegularSet extends Heuristic.WorkingSet{
         
         this.items.sort(Item.VolumeSort);
     }
+    Fit(){
+        console.log('Stacked Regions in HeuRegular')
+        console.log(this.stackedRegionsTree)   
+        let result = this.regionsTree.Find(this.FitFunction, this);
+        return result;
+    }
+    OnStack(Topregion, stack){
+        for(let iRegion = 0; iRegion < stack.regions.length; iRegion++){             
+            let checkRegionTop = tempRegion.OnTopRegion(smallValue, Topregion.region, stack.regions[iRegion]);
+            if(checkRegionTop) return stack.regions[iRegion].stackCount;                           
+        }
+        return 0;
+    }
 
     /** @param {Region} region */
     FitFunction(region){

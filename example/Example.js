@@ -82,7 +82,7 @@ class Example {
                 scaleRefFigure: FreightPacker.Constants.scaleRefFigure.man // human figure to show as scale reference
             },
             packerParams: {
-                defaultStackingFactor: 5 // multiplier for stacking capacity (capacity = weight * defaultStackingFactor) if stackingProperty is not enabled
+                defaultStackingFactor: 2 // multiplier for stacking capacity (capacity = weight * defaultStackingFactor) if stackingProperty is not enabled
             }
         };
 
@@ -198,7 +198,7 @@ class Example {
      */
     BoxInputComplete(){
         // Add entry, get an uid for later changes (or false on error)
-        let uid = this.api.cargoInput.Add(this.boxEntry);
+        let uid = this.api.cargoInput.Add(this.boxEntry);        
         if(uid){
             // Map entry to some values, using its uid
             /** @type {CustomBoxEntry} */
@@ -325,16 +325,15 @@ class Example {
             && typeof uiEntry.height === typeofNumber
         ){
             boxEntry.dimensions.Set(uiEntry.width, uiEntry.length, uiEntry.height);
-        }
+        }        
 
         let rotation = boxEntry.properties.rotation;
         rotation.enabled = uiEntry.validOrientations instanceof Array && uiEntry.validOrientations.length > 0;
-        if(rotation.enabled) rotation.allowedOrientations = csv(uiEntry.validOrientations);
-
+        if(rotation.enabled) rotation.allowedOrientations = uiEntry.validOrientations;
+        
         let stacking = boxEntry.properties.stacking;
         stacking.enabled = typeof uiEntry.stackingCapacity === typeofNumber && uiEntry.stackingCapacity >= 0;
         if(stacking.enabled) stacking.capacity = uiEntry.stackingCapacity;
-
         let translation = boxEntry.properties.translation;
         translation.enabled = uiEntry.grounded;
         if(translation.enabled) translation.grounded = uiEntry.grounded;

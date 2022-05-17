@@ -22,6 +22,7 @@ class HeuristicResult{
 const _items = Symbol('items');
 const _packedContainer = Symbol('packedContainer');
 const _regionsTree = Symbol('regionsTree');
+const _occupiedRegionsTree = Symbol('occupiedRegionsTree');
 const _workingItem = Symbol('workingItem');
 
 class HeuristicWorkingSet{
@@ -47,6 +48,11 @@ class HeuristicWorkingSet{
     /** @param {RegionsTree} value */
     set regionsTree(value){ throw Error('Use HeuristicWorkingSet.SetRegionsTree(regionsTree) instead.'); }
     get regionsTree(){ return this[_regionsTree]; }
+
+    SetOccupiedRegionsTree(occupiedRegionsTree){ this[_occupiedRegionsTree] = occupiedRegionsTree; }
+    /** @param {RegionsTree} value */
+    set occupiedRegionsTree(value){ throw Error('Use HeuristicWorkingSet.SetOccupiedRegionsTree(occupiedRegionsTree) instead.'); }
+    get occupiedRegionsTree(){ return this[_occupiedRegionsTree]; }
 
     /** @param {Item} item @returns {Boolean} */
     Validate(item){

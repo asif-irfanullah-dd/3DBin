@@ -25,10 +25,10 @@
     "url": "https://Chadiik@bitbucket.org/Chadiik/freight-packer.git"
   },
   "dependencies": {
-    "express": "~4.17.x",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.6.1",
+    "express": "~4.17.x",
     "freight-packer-lib-bundle": "file:local_modules/freight-packer-lib-bundle",
     "regenerator-runtime": "^0.12.1",
     "webpack": "^3.9.1",
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "eslint": "^8.4.1",
     "jest": "^23.6.0",
     "raw-loader": "^0.5.1"
   },

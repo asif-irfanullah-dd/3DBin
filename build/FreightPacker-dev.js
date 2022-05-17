@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 54);
+/******/ 	return __webpack_require__(__webpack_require__.s = 55);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -708,7 +708,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ColorTemplate = __webpack_require__(66);
+var _ColorTemplate = __webpack_require__(67);
 
 var _ColorTemplate2 = _interopRequireDefault(_ColorTemplate);
 
@@ -990,13 +990,13 @@ var _get = function get(object, property, receiver) { if (object === null) objec
 
 var _set = function set(object, property, value, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent !== null) { set(parent, property, value, receiver); } } else if ("value" in desc && desc.writable) { desc.value = value; } else { var setter = desc.set; if (setter !== undefined) { setter.call(receiver, value); } } return value; };
 
-var _PackingProperty = __webpack_require__(65);
+var _PackingProperty = __webpack_require__(66);
 
 var _Dimensions = __webpack_require__(25);
 
 var _Dimensions2 = _interopRequireDefault(_Dimensions);
 
-var _TextField = __webpack_require__(40);
+var _TextField = __webpack_require__(42);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -1221,7 +1221,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _TextField = __webpack_require__(40);
+var _TextField = __webpack_require__(42);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -2032,7 +2032,7 @@ var Config = function () {
                 this.editing = {};
 
                 this.Update = function () {
-                    __webpack_require__(43);
+                    __webpack_require__(45);
 
                     gui.updateAll();
                     guiChanged();
@@ -2047,7 +2047,7 @@ var Config = function () {
                 if (_this2.editing[keyInfo.id] !== true) {
                     var folder = gui;
                     if (keyInfo.folder) {
-                        __webpack_require__(43);
+                        __webpack_require__(45);
 
                         if (gui.find) folder = gui.find(keyInfo.folder);else console.warn('gui extensions not found!');
 
@@ -2249,15 +2249,33 @@ var Region = function () {
 
         this.Set(x, y, z, width, height, length, preferredX);
         this.SetWeights(0, maxWeightValue, maxWeightValue);
+        return this;
     }
 
-    /**
-     * @param {Number} x * @param {Number} y * @param {Number} z * @param {Number} width * @param {Number} height * @param {Number} length * @param {Number} preferredX 
-     */
-
-
     _createClass(Region, [{
-        key: "Set",
+        key: 'OnTopRegion',
+        value: function OnTopRegion(regionA, regionB) {
+            var xB = regionB.x,
+                yB = regionB.y,
+                zB = regionB.z;
+            var wB = regionB.width,
+                hB = regionB.height,
+                lB = regionB.length;
+            var xT = regionA.x,
+                yT = regionA.y,
+                zT = regionA.z;
+            var wT = regionA.width,
+                hT = regionA.height,
+                lT = regionA.length;
+            if (xT > xB - wT && xT < xB + wB + wT && zT > zB - lT && zT < zB + lB + lT && yT === yB + hB) return true;else return false;
+        }
+
+        /**
+         * @param {Number} x * @param {Number} y * @param {Number} z * @param {Number} width * @param {Number} height * @param {Number} length * @param {Number} preferredX 
+         */
+
+    }, {
+        key: 'Set',
         value: function Set(x, y, z, width, height, length, preferredX) {
             this.x = x;this.y = y;this.z = z;
             this.width = width;this.height = height;this.length = length;
@@ -2272,7 +2290,7 @@ var Region = function () {
          */
 
     }, {
-        key: "SetWeights",
+        key: 'SetWeights',
         value: function SetWeights(weight, weightCapacity, stackingCapacity) {
             this.weight = weight;
             this.weightCapacity = weightCapacity;
@@ -2282,14 +2300,14 @@ var Region = function () {
         /** @param {Region} region */
 
     }, {
-        key: "Copy",
+        key: 'Copy',
         value: function Copy(region) {
             this.Set(region.x, region.y, region.z, region.width, region.height, region.length, region.preferredX);
             this.SetWeights(this.weight, this.weightCapacity, this.stackingCapacity);
             return this;
         }
     }, {
-        key: "GetCorners",
+        key: 'GetCorners',
 
 
         /**
@@ -2325,7 +2343,7 @@ var Region = function () {
          */
 
     }, {
-        key: "GetFloorPoints",
+        key: 'GetFloorPoints',
         value: function GetFloorPoints(result) {
             if (result === undefined) result = tempPoints;
             var x = this.x,
@@ -2347,7 +2365,7 @@ var Region = function () {
          */
 
     }, {
-        key: "ContainsPoint",
+        key: 'ContainsPoint',
         value: function ContainsPoint(offset, px, py, pz) {
             var x = this.x - offset,
                 y = this.y - offset,
@@ -2361,7 +2379,7 @@ var Region = function () {
         /** @param {Number} offset offsets the region by this before checking * @param {Region} subRegion */
 
     }, {
-        key: "ContainsRegion",
+        key: 'ContainsRegion',
         value: function ContainsRegion(offset, subRegion) {
             var x = this.x - offset,
                 y = this.y - offset,
@@ -2381,7 +2399,7 @@ var Region = function () {
         /** @param {Number} offset offsets the region by this before checking * @param {Region} other */
 
     }, {
-        key: "Intersects",
+        key: 'Intersects',
         value: function Intersects(offset, other) {
             var x = this.x - offset,
                 y = this.y - offset,
@@ -2399,22 +2417,43 @@ var Region = function () {
          */
 
     }, {
-        key: "FitTest",
-            value: function FitTest(offset, width, height, length, weight, grounded, result) {
-            if (!result) result = tempRegion;
+        key: 'FitTest',
+        value: function FitTest(offset, width, height, length, weight, grounded, occupiedRegions, category) {
+            var result = tempRegion;
+            var OnTopOfRegions = [];
+            var validRegion = true;
+            var level = 0;
+            var TopRegion = new Region(this.x, this.y, this.z, width, height, length, 0);
+            for (var iRegion = 0; iRegion < occupiedRegions.length; iRegion++) {
+                var regionCheck = new Region(occupiedRegions[iRegion].x, occupiedRegions[iRegion].y, occupiedRegions[iRegion].z, occupiedRegions[iRegion].width, occupiedRegions[iRegion].height, occupiedRegions[iRegion].length, 0);
+                if (this.OnTopRegion(TopRegion, regionCheck)) {
+                    OnTopOfRegions.push(occupiedRegions[iRegion].level);
+                }
+            }
+            if (OnTopOfRegions.length > 0) {
+                OnTopOfRegions.sort(function (a, b) {
+                    return a - b;
+                });
+                level = OnTopOfRegions.pop();
+            }
+
+            if (level > 3) {
+                if (category === 'O2' || category === 'O3' || category === 'S1') validRegion = false;
+            }
 
             if (grounded && this.y > _Math2D.smallValue) return false;
 
             // Check that all dimensions fit
             var fit = width < this.width + offset * 2 && height < this.height + offset * 2 && length < this.length + offset * 2;
-            if (fit) {
+
+            if (fit && validRegion) {
 
                 var weightFit = weight <= this.weightCapacity;
                 if (weightFit) {
 
                     // Calculate x based on preferred side
-                    var x = this.preferredX !== 0 ? this.x + this.width - width : this.x;
-                    result.Set(x, this.y, this.z, width, height, length, this.preferredX);
+                    var x = this.x;
+                    result.Set(x, this.y, this.z, width, height, length, 0);
                     result.SetWeights(weight, 0, maxWeightValue);
                     return result;
                 }
@@ -2426,8 +2465,9 @@ var Region = function () {
         /** @param {Region} region * @param {Number} minRegionAxis */
 
     }, {
-        key: "Subtract",
+        key: 'Subtract',
         value: function Subtract(region, minRegionAxis) {
+            //minRegionAxis = smallValue;
             /** @type {Array<Region>} */
             var newRegions;
 
@@ -2451,11 +2491,10 @@ var Region = function () {
                 newRegions.push(west);
             }
 
-            // Calculate a new over/up region
+            // Calculate a new over/up region        
             axis = region.y + region.height;
             size = this.y + this.height - axis;
             if (size > minRegionAxis) {
-                console.log("new region up")
                 var over = new Region(region.x, axis, region.z, region.width, size, region.length, 0); // todo: add overhang var? // togglePreferredX based on pre-packed weight distribution?
                 over.SetWeights(0, region.stackingCapacity, region.stackingCapacity);
                 if (newRegions === undefined) newRegions = [];
@@ -2485,7 +2524,7 @@ var Region = function () {
         /** @param {Region} other */
 
     }, {
-        key: "ConnectFloorRects",
+        key: 'ConnectFloorRects',
         value: function ConnectFloorRects(other) {
             var ptsA = this.GetFloorPoints(tempPoints),
                 ptsB = other.GetFloorPoints(tempPoints2);
@@ -2538,7 +2577,7 @@ var Region = function () {
             return rectangles;
         }
     }, {
-        key: "ToString",
+        key: 'ToString',
         value: function ToString() {
             return format('R(p:[@, @, @], d:[@, @, @], w:@, wCap:@, sCap:@)', { nf: function nf(n) {
                     return numberFormat(n, 2);
@@ -2551,12 +2590,12 @@ var Region = function () {
          */
 
     }, {
-        key: "volume",
+        key: 'volume',
         get: function get() {
             return this.width * this.height * this.length;
         }
     }], [{
-        key: "SortDeepestSmallest",
+        key: 'SortDeepestSmallest',
         value: function SortDeepestSmallest(a, b) {
             if (a.z < b.z) return -1;
             if (a.z > b.z) return 1;
@@ -2597,15 +2636,15 @@ var _Packer = __webpack_require__(13);
 
 var _Packer2 = _interopRequireDefault(_Packer);
 
-var _View = __webpack_require__(81);
+var _View = __webpack_require__(83);
 
 var _View2 = _interopRequireDefault(_View);
 
-var _CargoInput = __webpack_require__(51);
+var _CargoInput = __webpack_require__(52);
 
 var _CargoInput2 = _interopRequireDefault(_CargoInput);
 
-var _PackingSpaceInput = __webpack_require__(52);
+var _PackingSpaceInput = __webpack_require__(53);
 
 var _PackingSpaceInput2 = _interopRequireDefault(_PackingSpaceInput);
 
@@ -2621,7 +2660,7 @@ var _Signaler2 = __webpack_require__(1);
 
 var _Signaler3 = _interopRequireDefault(_Signaler2);
 
-var _PackerInterface = __webpack_require__(53);
+var _PackerInterface = __webpack_require__(54);
 
 var _PackerInterface2 = _interopRequireDefault(_PackerInterface);
 
@@ -2641,7 +2680,7 @@ var _Asset = __webpack_require__(4);
 
 var _Asset2 = _interopRequireDefault(_Asset);
 
-var _DomUI = __webpack_require__(50);
+var _DomUI = __webpack_require__(51);
 
 var _DomUI2 = _interopRequireDefault(_DomUI);
 
@@ -2858,7 +2897,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var CUB = __webpack_require__(75);
+var CUB = __webpack_require__(76);
 
 /** @typedef CUBParams
  * @property {Number} score_minLength [0, 1] influence position of cargo in length
@@ -2871,6 +2910,10 @@ var CUB = __webpack_require__(75);
  */
 
 var typeofHeuristicParams = CUB.heuristics.HeuParametric1.Params;
+
+function ItemConstructor(category, quantity) {
+    return { category: category, quantity: quantity };
+}
 
 /** @param {CUBParams} cubParams @param {typeofHeuristicParams} heuristicParams */
 function extractHeuristicParams(cubParams, heuristicParams) {
@@ -2970,10 +3013,327 @@ var Packer = function (_Signaler) {
         return _this;
     }
 
-    /** @param {SolverParams} params */
-
-
     _createClass(Packer, [{
+        key: "GetItemDetails",
+        value: function GetItemDetails(items) {
+
+            var Items = [];
+            for (var i = 0; i < items.length; i++) {
+
+                Items.push(ItemConstructor(items[i].category, items[i].quantity));
+            }
+            return Items;
+        }
+    }, {
+        key: "GetItemIds",
+        value: function GetItemIds(items) {
+            var ItemIDS = [];
+            for (var i = items.length - 1; i >= 0; i--) {
+                ItemIDS.push(items[i].id);
+            }
+            return ItemIDS;
+        }
+    }, {
+        key: "CheckPairedItemsSKU2",
+        value: function CheckPairedItemsSKU2(items) {
+            var k = items.length / 2;
+            for (var i = items.length - 1; i >= k; i--) {
+                if (items[i].quantity != items[i - k].quantity) return false;
+            }
+            return true;
+        }
+    }, {
+        key: "CheckPairedItemsSKU3",
+        value: function CheckPairedItemsSKU3(items) {
+            var k = items.length / 3;
+            for (var i = 0; i < k; i++) {
+                if (items[i].quantity != items[i + k].quantity || items[i].quantity != items[i + 2 * k].quantity || items[i + k].quantity != items[i + 2 * k].quantity) return false;
+            }
+            return true;
+        }
+    }, {
+        key: "IncreementItemQuantity",
+        value: function IncreementItemQuantity(items, inititalItems) {
+            var SKUs = this.GetSKUS(items);
+            var InitialSKU = this.GetSKUS(inititalItems);
+            for (var i = 0; i < SKUs[2].length / 3; i++) {
+                var k = SKUs[2].length / 3;
+                if (SKUs[2][i].quantity < InitialSKU[2][i].quantity) {
+                    SKUs[2][i].quantity += 1;
+                    SKUs[2][i + k].quantity += 1;
+                    SKUs[2][i + 2 * k].quantity += 1;
+
+                    var SKU = this.JoinSKU(SKUs[0], SKUs[1], SKUs[2]);
+                    return SKU;
+                }
+            }
+            for (var _i = 0; _i < SKUs[1].length / 2; _i++) {
+                var _k = SKUs[1].length / 2;
+                if (SKUs[1][_i].quantity < InitialSKU[1][_i].quantity) {
+                    SKUs[1][_i].quantity += 1;
+                    SKUs[1][_i + _k].quantity += 1;
+
+                    var _SKU = this.JoinSKU(SKUs[0], SKUs[1], SKUs[2]);
+                    return _SKU;
+                }
+            }
+            for (var _i2 = 0; _i2 < SKUs[0].length; _i2++) {
+                if (SKUs[0][_i2].quantity < InitialSKU[0][_i2].quantity) {
+                    SKUs[0][_i2].quantity += 1;
+                    var _SKU2 = this.JoinSKU(SKUs[0], SKUs[1], SKUs[2]);
+                    return _SKU2;
+                }
+            }
+
+            return false;
+        }
+    }, {
+        key: "FindMinQuantitySKU2",
+        value: function FindMinQuantitySKU2(items, inititalItems) {
+            var k = items.length / 2;
+            for (var i = items.length - 1; i >= k; i--) {
+
+                if (items[i - k].quantity > items[i].quantity) {
+                    items[i].quantity = inititalItems[i].quantity - items[i - k].quantity;
+                    items[i - k].quantity = inititalItems[i - k].quantity - items[i - k].quantity;
+                    if (items[i - k].quantity > items[i].quantity) {
+                        items[i - k].quantity = items[i].quantity;
+                    } else {
+                        items[i].quantity = items[i - k].quantity;
+                    }
+                } else if (items[i - k].quantity < items[i].quantity) {
+                    items[i].quantity = inititalItems[i].quantity - items[i].quantity;
+                    items[i - k].quantity = inititalItems[i - k].quantity - items[i].quantity;
+                    if (items[i - k].quantity > items[i].quantity) {
+                        items[i - k].quantity = items[i].quantity;
+                    } else {
+                        items[i].quantity = items[i - k].quantity;
+                    }
+                }
+            }
+            return items;
+        }
+    }, {
+        key: "FindMinQuantitySKU3",
+        value: function FindMinQuantitySKU3(items, inititalItems) {
+            var k = items.length / 3;
+            for (var i = items.length - 1; i >= 2 * k; i--) {
+
+                if (items[i - k].quantity >= items[i].quantity && items[i - k].quantity >= items[i - 2 * k].quantity) {
+                    items[i].quantity = inititalItems[i].quantity - items[i - k].quantity;
+                    items[i - k].quantity = inititalItems[i - k].quantity - items[i - k].quantity;
+                    items[i - 2 * k].quantity = inititalItems[i - k].quantity - items[i - k].quantity;
+                    if (items[i - k].quantity <= items[i].quantity && items[i - k].quantity <= items[i - 2 * k].quantity) {
+                        items[i - 2 * k].quantity = items[i - k].quantity;
+                        items[i].quantity = items[i - k].quantity;
+                    } else if (items[i - 2 * k].quantity <= items[i].quantity && items[i - 2 * k].quantity <= items[i - k].quantity) {
+                        items[i].quantity = items[i - 2 * k].quantity;
+                        items[i - k].quantity = items[i - 2 * k].quantity;
+                    } else if (items[i].quantity <= items[i - k].quantity && items[i].quantity <= items[i - 2 * k].quantity) {
+                        items[i - 2 * k].quantity = items[i].quantity;
+                        items[i - k].quantity = items[i].quantity;
+                    }
+                } else if (items[i].quantity >= items[i - k].quantity && items[i].quantity >= items[i - 2 * k].quantity) {
+                    items[i].quantity = inititalItems[i].quantity - items[i].quantity;
+                    items[i - k].quantity = inititalItems[i - k].quantity - items[i].quantity;
+                    items[i - 2 * k].quantity = inititalItems[i - k].quantity - items[i].quantity;
+                    if (items[i - k].quantity <= items[i].quantity && items[i - k].quantity <= items[i - 2 * k].quantity) {
+                        items[i - 2 * k].quantity = items[i - k].quantity;
+                        items[i].quantity = items[i - k].quantity;
+                    } else if (items[i - 2 * k].quantity <= items[i].quantity && items[i - 2 * k].quantity <= items[i - k].quantity) {
+                        items[i].quantity = items[i - 2 * k].quantity;
+                        items[i - k].quantity = items[i - 2 * k].quantity;
+                    } else if (items[i].quantity <= items[i - k].quantity && items[i].quantity <= items[i - 2 * k].quantity) {
+                        items[i - 2 * k].quantity = items[i].quantity;
+                        items[i - k].quantity = items[i].quantity;
+                    }
+                } else if (items[i - 2 * k].quantity >= items[i].quantity && items[i - k].quantity <= items[i - 2 * k].quantity) {
+                    items[i].quantity = inititalItems[i].quantity - items[i - 2 * k].quantity;
+                    items[i - k].quantity = inititalItems[i - k].quantity - items[i - 2 * k].quantity;
+                    items[i - 2 * k].quantity = inititalItems[i - k].quantity - items[i - 2 * k].quantity;
+                    if (items[i - k].quantity <= items[i].quantity && items[i - k].quantity <= items[i - 2 * k].quantity) {
+                        items[i - 2 * k].quantity = items[i - k].quantity;
+                        items[i].quantity = items[i - k].quantity;
+                    } else if (items[i - 2 * k].quantity <= items[i].quantity && items[i - 2 * k].quantity <= items[i - k].quantity) {
+                        items[i].quantity = items[i - 2 * k].quantity;
+                        items[i - k].quantity = items[i - 2 * k].quantity;
+                    } else if (items[i].quantity <= items[i - k].quantity && items[i].quantity <= items[i - 2 * k].quantity) {
+                        items[i - 2 * k].quantity = items[i].quantity;
+                        items[i - k].quantity = items[i].quantity;
+                    }
+                }
+            }
+            return items;
+        }
+    }, {
+        key: "GetPackedItemQuantity",
+        value: function GetPackedItemQuantity(newitems, items, Initialitems) {
+            for (var i = 0; i < newitems.length; i++) {
+                newitems[i].quantity = Initialitems[i].quantity - items[i].quantity;
+            }
+            return newitems;
+        }
+    }, {
+        key: "FetchItemQuantityZero",
+        value: function FetchItemQuantityZero(newitems) {
+            for (var i = 0; i < newitems.length; i++) {
+
+                newitems[i].quantity = 0;
+            }
+            return newitems;
+        }
+    }, {
+        key: "FetchItemQuantity",
+        value: function FetchItemQuantity(newitems, items) {
+            for (var i = 0; i < items.length; i++) {
+
+                newitems[i].quantity = items[i].quantity;
+            }
+            return newitems;
+        }
+    }, {
+        key: "SetItemQuantity",
+        value: function SetItemQuantity(items, newitems) {
+            for (var i = 0; i < items.length; i++) {
+
+                items[i].quantity = newitems[i].quantity;
+            }
+            return items;
+        }
+    }, {
+        key: "ItemQuantityRange",
+        value: function ItemQuantityRange(items, inititalItems) {
+            var count = 0;
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].quantity <= inititalItems[i].quantity) return true;
+            }
+            //if(count>0) 
+            return false;
+        }
+    }, {
+        key: "GetSchema",
+        value: function GetSchema(items) {
+            var schema = [];
+            for (var i = 0; i < items.length; i++) {
+                schema.push(items[i].quantity);
+            }
+            // for(let i = 0; i<SKU2.length; i++ ){
+            //     schema.push(SKU2[i].quantity);         
+            // }
+            // for(let i = 0; i<SKU3.length; i++ ){
+            //     schema.push(SKU3[i].quantity);         
+            // }
+            return schema;
+        }
+    }, {
+        key: "GetSKUS",
+        value: function GetSKUS(items) {
+            var SKU1 = [];
+            var SKU2 = [];
+            var SKU3 = [];
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].category === 'O1' || items[i].category === 'S1') SKU1.push(items[i]);
+                if (items[i].category === 'O2' || items[i].category === 'I2') SKU2.push(items[i]);
+                if (items[i].category === 'O3' || items[i].category === 'I3' || items[i].category === 'S3') SKU3.push(items[i]);
+            }
+            return [SKU1, SKU2, SKU3];
+        }
+    }, {
+        key: "CheckPairedItems",
+        value: function CheckPairedItems(items) {
+            var SKUs = this.GetSKUS(items);
+            // console.log(SKUs[1],'SKU2', SKUs[2], 'SKU3');
+            if (SKUs[1].length > 0) {
+                if (!this.CheckPairedItemsSKU2(SKUs[1])) return false;
+            }
+            if (SKUs[2].length > 0) {
+                if (!this.CheckPairedItemsSKU3(SKUs[2])) return false;
+            }
+            return true;
+        }
+    }, {
+        key: "JoinSKU",
+        value: function JoinSKU(SKU1, SKU2, SKU3) {
+            var JoinedSKU = [];
+            if (SKU1) {
+                for (var i = 0; i < SKU1.length; i++) {
+                    JoinedSKU.push(SKU1[i]);
+                }
+            }
+            if (SKU2) {
+                for (var _i3 = 0; _i3 < SKU2.length; _i3++) {
+                    JoinedSKU.push(SKU2[_i3]);
+                }
+            }
+            if (SKU1) {
+                for (var _i4 = 0; _i4 < SKU3.length; _i4++) {
+                    JoinedSKU.push(SKU3[_i4]);
+                }
+            }
+            return JoinedSKU;
+        }
+    }, {
+        key: "PackSKUs",
+        value: function () {
+            var _ref = _asyncToGenerator(function* (container, items, heuristic) {
+
+                var SKUs = this.GetSKUS(items);
+                var finalSchema = [];
+                //let InititalSKU1 = this.GetItemDetails(SKUs[0]);
+                var finalSKU1 = this.GetItemDetails(SKUs[0]);
+                var finalSKU2 = this.GetItemDetails(SKUs[1]);
+                var finalSKU3 = this.GetItemDetails(SKUs[2]);
+                var finalSKUQty = this.JoinSKU(finalSKU1, finalSKU2, finalSKU3);
+                var CombindedSKU = this.JoinSKU(SKUs[0], SKUs[1], SKUs[2]);
+                var Initialitems = this.GetItemDetails(finalSKUQty);
+                // var results = await CUB.pack(container, SKUs[0], heuristic);
+                // finalSKU1 = this.GetPackedItemQuantity(finalSKU1, SKUs[0], InititalSKU1);
+                finalSKU1 = this.FetchItemQuantityZero(finalSKU1);
+                finalSKU2 = this.FetchItemQuantityZero(finalSKU2);
+                finalSKU3 = this.FetchItemQuantityZero(finalSKU3);
+                finalSKUQty = this.JoinSKU(finalSKU1, finalSKU2, finalSKU3);
+                finalSKUQty = this.IncreementItemQuantity(finalSKUQty, Initialitems);
+                var tempQty = this.GetItemDetails(CombindedSKU);
+                while (this.ItemQuantityRange(finalSKUQty, Initialitems)) {
+                    CombindedSKU = this.SetItemQuantity(CombindedSKU, finalSKUQty);
+                    var results = yield CUB.pack(container, CombindedSKU, heuristic);
+
+                    if (this.CheckPairedItems(CombindedSKU) === true) {
+                        tempQty = this.GetPackedItemQuantity(tempQty, CombindedSKU, finalSKUQty);
+                        var quantitySchema = this.GetSchema(tempQty);
+                        finalSchema.push(quantitySchema);
+                    }
+                    finalSKUQty = this.IncreementItemQuantity(finalSKUQty, Initialitems);
+                }
+                //console.log(finalSchema)
+                finalSchema.sort(function (a, b) {
+                    //console.log(a);
+                    function Sum(row) {
+                        var sum = 0;
+                        for (var i = 0; i < row.length; i++) {
+                            sum += row[i];
+                        }
+                        return sum;
+                    }
+                    if (Sum(a) < Sum(b)) return -1;
+                    if (Sum(a) > Sum(b)) return 1;
+                    return 0;
+                });
+
+                var SKUQty = finalSchema.pop();
+                return SKUQty;
+            });
+
+            function PackSKUs(_x, _x2, _x3) {
+                return _ref.apply(this, arguments);
+            }
+
+            return PackSKUs;
+        }()
+
+        /** @param {SolverParams} params */
+
+    }, {
         key: "Solve",
         value: function Solve(params) {
             params = params || this[_solverParams];
@@ -2991,7 +3351,7 @@ var Packer = function (_Signaler) {
     }, {
         key: "SolveCUB",
         value: function () {
-            var _ref = _asyncToGenerator(function* (params) {
+            var _ref2 = _asyncToGenerator(function* (params) {
 
                 if (this.packingSpace.ready === false) {
                     this.Dispatch(signals.packFailed, 'Packing space not ready');
@@ -3009,12 +3369,16 @@ var Packer = function (_Signaler) {
                 var containingVolume = this.packingSpace.current.volume;
                 var d = containingVolume.dimensions;
                 var container = new Container(containingVolume.uid, d.width, d.height, d.length, containingVolume.weightCapacity);
+                var ZeroContainer = new Container(containingVolume.uid, d.width, d.height, d.length, 0);
 
                 var numTotalItems = 0;
 
                 /** @type {Array<Item>} */
                 var items = [];
                 var entries = {};
+                var itemQuant = [];
+                //  var ItemInfo=[];
+
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
                 var _iteratorError = undefined;
@@ -3024,15 +3388,18 @@ var Packer = function (_Signaler) {
                         var group = _step.value;
 
                         /** @type {BoxEntry} */
+
                         var entry = group.entry;
                         entries[entry.uid] = entry;
                         d = entry.dimensions;
-                        var validOrientations = entry.properties.rotation.enabled ? entry.properties.rotation.allowedOrientations : undefined;
+                        var validOrientations = ['xyz'];
                         var stackingCapacity = entry.properties.stacking.enabled ? entry.properties.stacking.capacity : entry.weight > epsilon ? entry.weight * this.params.defaultStackingFactor : Number.MAX_SAFE_INTEGER - 10;
                         var grounded = entry.properties.translation.enabled ? entry.properties.translation.grounded : false;
-                        var item = new Item(entry.uid, d.width, d.height, d.length, entry.weight, entry.quantity, validOrientations, stackingCapacity, grounded);
+                        var item = new Item(entry.uid, entry.label, d.width, d.height, d.length, entry.weight, entry.quantity, validOrientations, stackingCapacity, grounded);
                         items.push(item);
+                        itemQuant.push(item.quantity);
                         numTotalItems += entry.quantity;
+                        // ItemInfo.push([item.id,item.quantity,entry.label.toLowerCase().replace(" ", "")])
                     }
                 } catch (err) {
                     _didIteratorError = true;
@@ -3049,16 +3416,30 @@ var Packer = function (_Signaler) {
                     }
                 }
 
+                var ItemIDS = this.GetItemIds(items);
+                var InititalItems = this.GetItemDetails(items);
                 var startTime = performance.now();
-                var heuristicParams = extractHeuristicParams(params);
-                var heuristic = new CUB.heuristics.HeuParametric1(heuristicParams);
-                console.log("from here packing");
-                var result = yield CUB.pack(container, items, heuristic);
-                var cubRuntime = performance.now() - startTime;
+                var heuristicParams = extractHeuristicParams({ score_minLength: 0.9, score_minWastedSpace: 0.09999999999999998 });
+                var heuristic = new CUB.heuristics.HeuParametric1(heuristicParams, ItemIDS);
+                var finalItems = yield this.PackSKUs(container, items, heuristic);
+                console.log(finalItems);
+                for (var i = 0; i < items.length; i++) {
+                    items[i].quantity = finalItems[i];
+                }
 
+                var results = yield CUB.pack(container, items, heuristic);
+
+                for (var _i5 = 0; _i5 < items.length; _i5++) {
+                    items[_i5].quantity = InititalItems[_i5].quantity - finalItems[_i5];
+                }
+
+                var unpackResult = yield CUB.pack(ZeroContainer, items, heuristic);
+
+                var cubRuntime = performance.now() - startTime;
                 var cubRuntime2Dec = Math.round(cubRuntime / 1000 * 100) / 100;
                 var packingResult = new PackingResult(numTotalItems, cubRuntime2Dec);
-                result.packedItems.forEach(function (packedItem) {
+
+                results.packedItems.forEach(function (packedItem) {
                     var entry = entries[packedItem.ref.id];
                     var position = new THREE.Vector3(packedItem.x + packedItem.packedWidth / 2, packedItem.y + packedItem.packedHeight / 2, packedItem.z + packedItem.packedLength / 2);
                     var orientation = Item.ResolveOrientation(packedItem.orientation);
@@ -3066,18 +3447,20 @@ var Packer = function (_Signaler) {
                     packingResult.packed.push(packedCargo);
                 });
 
-                result.unpackedItems.forEach(function (unpackedItem) {
+                unpackResult.unpackedItems.forEach(function (unpackedItem) {
                     var entry = entries[unpackedItem.id];
                     var unpackedQuantity = unpackedItem.quantity;
                     var unpackedCargo = new UnpackedCargo(entry, unpackedQuantity);
                     packingResult.unpacked.push(unpackedCargo);
                 });
 
+                console.log(packingResult, "Output");
+
                 this.Dispatch(signals.packUpdate, packingResult);
             });
 
-            function SolveCUB(_x) {
-                return _ref.apply(this, arguments);
+            function SolveCUB(_x4) {
+                return _ref2.apply(this, arguments);
             }
 
             return SolveCUB;
@@ -3118,7 +3501,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _Volume2 = __webpack_require__(74);
+var _Volume2 = __webpack_require__(75);
 
 var _Volume3 = _interopRequireDefault(_Volume2);
 
@@ -3240,11 +3623,11 @@ var Item = function () {
      * @param {Number} stackingCapacity 
      * @param {Boolean} grounded 
      */
-    function Item(id, width, height, length, weight, quantity, validOrientations, stackingCapacity, grounded) {
+    function Item(id, label, width, height, length, weight, quantity, validOrientations, stackingCapacity, grounded) {
         _classCallCheck(this, Item);
 
         this.id = id;
-        this.width = width;
+        this.category = label, this.width = width;
         this.height = height;
         this.length = length;
         this.weight = weight;
@@ -3307,7 +3690,6 @@ var Item = function () {
                 var orientation = (typeof vo === 'undefined' ? 'undefined' : _typeof(vo)) === typeofNumber ? vo : orientations.indexOf(vo.toLowerCase());
                 if (orientation !== -1) validOrientations.push(orientation);
             }
-
             if (validOrientations.length === 0) validOrientations[0] = 'xyz' || orientations[0];
 
             this[_validOrientations] = validOrientations;
@@ -3454,19 +3836,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Input = __webpack_require__(58);
+var _Input = __webpack_require__(59);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _Quality = __webpack_require__(60);
+var _Quality = __webpack_require__(61);
 
 var _Quality2 = _interopRequireDefault(_Quality);
 
-var _Controller = __webpack_require__(38);
+var _Controller = __webpack_require__(40);
 
 var _Controller2 = _interopRequireDefault(_Controller);
 
-var _Renderer = __webpack_require__(61);
+var _Renderer = __webpack_require__(62);
 
 var _Renderer2 = _interopRequireDefault(_Renderer);
 
@@ -3474,7 +3856,7 @@ var _Camera = __webpack_require__(17);
 
 var _Camera2 = _interopRequireDefault(_Camera);
 
-var _HUDView = __webpack_require__(63);
+var _HUDView = __webpack_require__(64);
 
 var _HUDView2 = _interopRequireDefault(_HUDView);
 
@@ -3802,7 +4184,7 @@ var SceneSetup = function (_Signaler) {
 }(_Signaler3.default);
 
 exports.default = SceneSetup;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
 
 /***/ }),
 /* 17 */
@@ -3833,7 +4215,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-__webpack_require__(62);
+__webpack_require__(63);
 
 var epsilon = Math.pow(2, -52);
 
@@ -4919,7 +5301,7 @@ var _Asset = __webpack_require__(4);
 
 var _Asset2 = _interopRequireDefault(_Asset);
 
-var _TextLabelView = __webpack_require__(41);
+var _TextLabelView = __webpack_require__(43);
 
 var _TextLabelView2 = _interopRequireDefault(_TextLabelView);
 
@@ -5048,11 +5430,11 @@ var _Utils = __webpack_require__(0);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _Visualization = __webpack_require__(68);
+var _Visualization = __webpack_require__(69);
 
 var _Visualization2 = _interopRequireDefault(_Visualization);
 
-var _User = __webpack_require__(69);
+var _User = __webpack_require__(70);
 
 var _User2 = _interopRequireDefault(_User);
 
@@ -5060,7 +5442,7 @@ var _App = __webpack_require__(12);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _Constants = __webpack_require__(42);
+var _Constants = __webpack_require__(44);
 
 var _Constants2 = _interopRequireDefault(_Constants);
 
@@ -5165,7 +5547,7 @@ var _CargoEntry = __webpack_require__(6);
 
 var _CargoEntry2 = _interopRequireDefault(_CargoEntry);
 
-var _FloatingShelf = __webpack_require__(71);
+var _FloatingShelf = __webpack_require__(72);
 
 var _FloatingShelf2 = _interopRequireDefault(_FloatingShelf);
 
@@ -5177,15 +5559,15 @@ var _BoxEntry = __webpack_require__(5);
 
 var _BoxEntry2 = _interopRequireDefault(_BoxEntry);
 
-var _TextLabelView = __webpack_require__(41);
+var _TextLabelView = __webpack_require__(43);
 
 var _TextLabelView2 = _interopRequireDefault(_TextLabelView);
 
-var _RaycastGroup = __webpack_require__(37);
+var _RaycastGroup = __webpack_require__(39);
 
 var _RaycastGroup2 = _interopRequireDefault(_RaycastGroup);
 
-var _Outline = __webpack_require__(72);
+var _Outline = __webpack_require__(73);
 
 var _Outline2 = _interopRequireDefault(_Outline);
 
@@ -6269,7 +6651,7 @@ var _CargoEntry = __webpack_require__(6);
 
 var _CargoEntry2 = _interopRequireDefault(_CargoEntry);
 
-var _Cargo = __webpack_require__(70);
+var _Cargo = __webpack_require__(71);
 
 var _Cargo2 = _interopRequireDefault(_Cargo);
 
@@ -6653,7 +7035,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-__webpack_require__(73);
+__webpack_require__(74);
 
 var spaces = {
     world: 'world',
@@ -7006,6 +7388,381 @@ exports.default = PackingSpace;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var maxWeightValue = Number.MAX_SAFE_INTEGER;
+
+var OccupiedRegions = function () {
+    function OccupiedRegions(x, y, z, width, height, length, item, level, preferredX) {
+        _classCallCheck(this, OccupiedRegions);
+
+        this.Set(x, y, z, width, height, length, level, preferredX);
+        this.SetWeights(0, maxWeightValue, maxWeightValue);
+        this.ref = item;
+        return this;
+    }
+
+    _createClass(OccupiedRegions, [{
+        key: "OnTopRegion",
+        value: function OnTopRegion(regionA, regionB) {
+            var xB = regionB.x,
+                yB = regionB.y,
+                zB = regionB.z;
+            var wB = regionB.width,
+                hB = regionB.height,
+                lB = regionB.length;
+            var xT = regionA.x,
+                yT = regionA.y,
+                zT = regionA.z;
+            var wT = regionA.width,
+                hT = regionA.height,
+                lT = regionA.length;
+            if (xT > xB - wT && xT < xB + wB + wT && zT > zB - lT && zT < zB + lB + lT && yT === yB + hB) return true;else return false;
+        }
+    }, {
+        key: "Set",
+        value: function Set(x, y, z, width, height, length, level, preferredX) {
+            this.x = x;this.y = y;this.z = z;
+            this.width = width;this.height = height;this.length = length;
+            this.level = level;
+            this.preferredX = preferredX;
+            return this;
+        }
+
+        /**
+         * @param {Number} weight 
+         * @param {Number} weightCapacity 
+         * @param {Number} stackingCapacity 
+         */
+
+    }, {
+        key: "SetWeights",
+        value: function SetWeights(weight, weightCapacity, stackingCapacity) {
+            this.weight = weight;
+            this.weightCapacity = weightCapacity;
+            this.stackingCapacity = stackingCapacity;
+        }
+    }]);
+
+    return OccupiedRegions;
+}();
+
+exports.default = OccupiedRegions;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Math2D = __webpack_require__(8);
+
+var _Region = __webpack_require__(11);
+
+var _Region2 = _interopRequireDefault(_Region);
+
+var _OccupiedRegion = __webpack_require__(33);
+
+var _OccupiedRegion2 = _interopRequireDefault(_OccupiedRegion);
+
+var _CUBDebug = __webpack_require__(35);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/** RegionFindCallback
+ * @callback RegionFindCallback
+ * @param {Region} region
+ * @returns {Object | Boolean}
+ */
+
+/** @typedef Vec2 @property {Number} x @property {Number} y */
+
+/** @typedef Rectangle @property {Vec2} p1 @property {Vec2} p2 @property {Vec2} p3 @property {Vec2} p4 
+ * @property {Number} weight @property {Number} weightCapacity @property {Number} stackingCapacity 
+ */
+
+var minRegionAxis = _Math2D.smallValue;
+
+function sortByN(a, b) {
+    if (isNaN(a.n) || isNaN(b.n)) return 0;
+
+    if (a.n < b.n) return -1;
+    if (a.n > b.n) return 1;
+    return 0;
+}
+//function occupyRegionConstructor(region, item){ return { region: region, item: item }; }
+var tempRegion = new _Region2.default();
+var tempOccupiedRegion = new _OccupiedRegion2.default();
+
+var RegionsTree = function () {
+    /** @param {Region} root */
+    function RegionsTree(root) {
+        _classCallCheck(this, RegionsTree);
+
+        this.regions = [root];
+    }
+
+    /** @param {Number} index */
+
+
+    _createClass(RegionsTree, [{
+        key: "Get",
+        value: function Get(index) {
+            return this.regions[index];
+        }
+
+        /** @param {RegionFindCallback} callback @param {*} thisArg */
+
+    }, {
+        key: "Find",
+        value: function Find(callback, thisArg) {
+            var numRegions = this.regions.length;
+            for (var iRegion = 0; iRegion < numRegions; iRegion++) {
+                var region = this.regions[iRegion];
+                var search = callback.call(thisArg, region);
+                if (search) return search;
+            }
+            return false;
+        }
+
+        /** @param {Region} region * @param {Region} fit * @returns {Boolean} false if region has been deleted */
+
+    }, {
+        key: "Occupy",
+        value: function Occupy(region, fit) {
+            var _regions;
+
+            var newRegions = region.Subtract(fit, minRegionAxis);
+
+            if (newRegions) (_regions = this.regions).push.apply(_regions, _toConsumableArray(newRegions));
+
+            // Check that region is still valid, otherwise remove it
+            if (region.length < minRegionAxis) {
+                var regionIndex = this.regions.indexOf(region);
+                this.regions.splice(regionIndex, 1);
+                return false;
+            }
+
+            var debugUIDs = [];
+            if (!newRegions) newRegions = [];
+            newRegions.push(region);
+            //console.group('Occupy');
+            newRegions.forEach(function (region) {
+                //console.log(region.ToString());
+                debugUIDs.push((0, _CUBDebug.debugRegion)(region, 0xffff0000, true, -1, true));
+            });
+            //console.groupEnd();
+
+            (0, _CUBDebug.debugClear)(debugUIDs);
+
+            return true;
+        }
+
+        /** @param {Number} width */
+
+    }, {
+        key: "ProcessRegionsPreferredX",
+        value: function ProcessRegionsPreferredX(width) {
+            var regions = this.regions,
+                numRegions = regions.length;
+            //let width = this.container.width;
+
+            for (var iRegion = 0; iRegion < numRegions; iRegion++) {
+                var region = regions[iRegion];
+
+                if (Math.abs(region.x) < _Math2D.smallValue) region.preferredX = 0;else if (Math.abs(region.x + region.width - width) < _Math2D.smallValue) region.preferredX = 1;
+            }
+        }
+
+        /** @param {Number} width @param {Number} height */
+
+    }, {
+        key: "ProcessRegionsMergeExpand",
+        value: function ProcessRegionsMergeExpand(width, height) {
+            var regions = this.regions,
+                numRegions = regions.length;
+
+            var toInt = 1 / _Math2D.smallValue;
+            function coordID(value) {
+                return Math.floor(value * toInt);
+            }
+
+            /** @typedef Level @property {Number} y @property {Array<Rectangle>} rectangles */
+            /** @type {Array<Level>} */
+            var levels = {};
+
+            var neighbours = [],
+                rectangles = [];
+            for (var iRegion = 0; iRegion < numRegions; iRegion++) {
+                var regionA = regions[iRegion];
+
+                if (regionA.weightCapacity > _Math2D.smallValue) {
+                    neighbours.length = 0;
+                    neighbours.push(iRegion);
+
+                    for (var jRegion = iRegion + 1; jRegion < numRegions; jRegion++) {
+                        var regionB = regions[jRegion];
+
+                        if (regionB.weightCapacity > _Math2D.smallValue && Math.abs(regionA.y - regionB.y) < _Math2D.smallValue) {
+                            var intersects = regionA.Intersects(_Math2D.smallValue, regionB);
+                            if (intersects) {
+                                neighbours.push(jRegion);
+                            }
+                        }
+                    }
+
+                    var numNeighbours = neighbours.length;
+                    if (numNeighbours > 1) {
+                        rectangles.length = 0;
+
+                        for (var iNeighbour = 0; iNeighbour < numNeighbours; iNeighbour++) {
+                            var neighbourA = regions[neighbours[iNeighbour]];
+
+                            for (var jNeighbour = iNeighbour + 1; jNeighbour < numNeighbours; jNeighbour++) {
+                                var neighbourB = regions[neighbours[jNeighbour]];
+
+                                var connectedNeighbours = neighbourA.ConnectFloorRects(neighbourB);
+                                rectangles.push.apply(rectangles, _toConsumableArray(connectedNeighbours));
+                            }
+                        }
+
+                        if (rectangles.length > 0) {
+                            var _levels$yCat$rectangl;
+
+                            var yCat = coordID(regionA.y);
+                            if (levels[yCat] === undefined) levels[yCat] = { y: regionA.y, rectangles: [] };
+                            (_levels$yCat$rectangl = levels[yCat].rectangles).push.apply(_levels$yCat$rectangl, rectangles);
+                        }
+                    }
+                }
+            }
+
+            var levelsYCats = Object.keys(levels);
+            for (var iYCat = 0, numYCats = levelsYCats.length; iYCat < numYCats; iYCat++) {
+                /** @type {Level} */
+                var level = levels[levelsYCats[iYCat]];
+                var _rectangles = level.rectangles;
+                var regionY = level.y;
+                var regionHeight = height - regionY;
+
+                (0, _Math2D.reduceRectangles)(_rectangles);
+                for (var iRect = 0, numRects = _rectangles.length; iRect < numRects; iRect++) {
+                    var rect = _rectangles[iRect];
+                    var rx = rect.p1.x,
+                        ry = rect.p1.y;
+                    var rw = rect.p3.x - rx,
+                        rh = rect.p3.y - ry;
+
+                    // Calculate preferred packing side based on center point relative to container
+                    var preferredX = rx.x + rw / 2 < width / 2 ? 0 : 1;
+                    var newRegion = new _Region2.default(rx, regionY, ry, rw, regionHeight, rh, 0);
+                    newRegion.SetWeights(rect.weight, rect.weightCapacity, rect.stackingCapacity);
+                    this.regions.push(newRegion);
+                }
+            }
+        }
+    }, {
+        key: "ProcessRegionsForZeroRegions",
+        value: function ProcessRegionsForZeroRegions() {
+            var regions = this.regions;
+            for (var iRegion = 0; iRegion < regions.length; iRegion++) {
+                var region = regions[iRegion];
+                if (region.width < minRegionAxis || region.height < minRegionAxis || region.length < minRegionAxis) {
+                    regions.splice(iRegion, 1);
+                    iRegion--;
+                }
+            }
+        }
+    }, {
+        key: "AddRegion",
+        value: function AddRegion(newRegions) {
+
+            if (newRegions) {
+                var OnTopOfRegions = [];
+                for (var iRegion = 0; iRegion < this.regions.length; iRegion++) {
+                    if (tempOccupiedRegion.OnTopRegion(newRegions, this.regions[iRegion])) {
+                        OnTopOfRegions.push(this.regions[iRegion].level);
+                    }
+                }
+                OnTopOfRegions.sort(function (a, b) {
+                    return a - b;
+                });
+                var level = OnTopOfRegions.pop();
+                var dummy = new _OccupiedRegion2.default(newRegions.x, newRegions.y, newRegions.z, newRegions.width, newRegions.height, newRegions.length, newRegions.ref, level + 1, 0);
+                this.regions.push(dummy);
+                return true;
+            }
+            return false;
+        }
+    }, {
+        key: "ProcessRegionsEnclosed",
+        value: function ProcessRegionsEnclosed() {
+            var regions = this.regions;
+
+            for (var iRegion = 0; iRegion < regions.length; iRegion++) {
+                var regionA = regions[iRegion];
+                var volumeA = regionA.volume;
+
+                for (var jRegion = iRegion + 1; jRegion < regions.length; jRegion++) {
+                    var regionB = regions[jRegion];
+                    var volumeB = regionB.volume;
+
+                    if (volumeA < volumeB) {
+                        // If a A is completely contained within B, remove the A
+                        if (regionB.ContainsRegion(_Math2D.smallValue, regionA)) {
+                            regions.splice(iRegion, 1);
+                            iRegion--;
+                            break;
+                        }
+                    } else {
+                        // If a B is completely contained within A, remove the B
+                        if (regionA.ContainsRegion(_Math2D.smallValue, regionB)) {
+                            regions.splice(jRegion, 1);
+                            jRegion--;
+                        }
+                    }
+                }
+            }
+        }
+
+        /** @param {Function} sortFunction */
+
+    }, {
+        key: "Sort",
+        value: function Sort(sortFunction) {
+            this.regions.sort(sortFunction);
+        }
+    }]);
+
+    return RegionsTree;
+}();
+
+exports.default = RegionsTree;
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.debugging = undefined;
 exports.sleep = sleep;
 exports.debugLog = debugLog;
@@ -7015,7 +7772,7 @@ exports.debugClear = debugClear;
 exports.numberFormat = numberFormat;
 exports.format = format;
 
-var _Debug = __webpack_require__(45);
+var _Debug = __webpack_require__(46);
 
 var _Debug2 = _interopRequireDefault(_Debug);
 
@@ -7119,7 +7876,7 @@ function format(str, params) {
 }
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7135,17 +7892,17 @@ var _Math2D = __webpack_require__(8);
 
 var _Components = __webpack_require__(15);
 
-var _PackedComponents = __webpack_require__(46);
+var _PackedComponents = __webpack_require__(47);
 
 var _Region = __webpack_require__(11);
 
 var _Region2 = _interopRequireDefault(_Region);
 
-var _RegionsTree = __webpack_require__(44);
+var _RegionsTree = __webpack_require__(34);
 
 var _RegionsTree2 = _interopRequireDefault(_RegionsTree);
 
-var _CUBDebug = __webpack_require__(33);
+var _CUBDebug = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7170,6 +7927,7 @@ function HeuristicResult(containingRegion, packedRegion, orientation) {
 var _items = Symbol('items');
 var _packedContainer = Symbol('packedContainer');
 var _regionsTree = Symbol('regionsTree');
+var _occupiedRegionsTree = Symbol('occupiedRegionsTree');
 var _workingItem = Symbol('workingItem');
 
 var HeuristicWorkingSet = function () {
@@ -7207,6 +7965,13 @@ var HeuristicWorkingSet = function () {
         /** @param {RegionsTree} regionsTree */
         value: function SetRegionsTree(regionsTree) {
             this[_regionsTree] = regionsTree;
+        }
+        /** @param {RegionsTree} value */
+
+    }, {
+        key: "SetOccupiedRegionsTree",
+        value: function SetOccupiedRegionsTree(occupiedRegionsTree) {
+            this[_occupiedRegionsTree] = occupiedRegionsTree;
         }
         /** @param {RegionsTree} value */
 
@@ -7312,6 +8077,14 @@ var HeuristicWorkingSet = function () {
             return this[_regionsTree];
         }
     }, {
+        key: "occupiedRegionsTree",
+        set: function set(value) {
+            throw Error('Use HeuristicWorkingSet.SetOccupiedRegionsTree(occupiedRegionsTree) instead.');
+        },
+        get: function get() {
+            return this[_occupiedRegionsTree];
+        }
+    }, {
         key: "workingItem",
         set: function set(value) {
             throw Error('Use HeuristicWorkingSet.SetWorkingItem(item) instead.');
@@ -7367,7 +8140,7 @@ Heuristic.Result = HeuristicResult;
 exports.default = Heuristic;
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports) {
 
 var g;
@@ -7394,7 +8167,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7452,7 +8225,7 @@ var UpdateComponent = function () {
 exports.default = UpdateComponent;
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7591,7 +8364,7 @@ var RaycastGroup = function () {
 exports.default = RaycastGroup;
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7662,7 +8435,7 @@ var Controller = function () {
 exports.default = Controller;
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7694,7 +8467,7 @@ var _Utils = __webpack_require__(0);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _Transition = __webpack_require__(67);
+var _Transition = __webpack_require__(68);
 
 var _Asset = __webpack_require__(4);
 
@@ -7919,7 +8692,7 @@ var EntryInputView = function () {
 exports.default = EntryInputView;
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7981,7 +8754,7 @@ var TextField = function () {
 exports.default = TextField;
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8179,7 +8952,7 @@ TextLabelView.Label = TextLabel;
 exports.default = TextLabelView;
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8191,7 +8964,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _EntryInputView = __webpack_require__(39);
+var _EntryInputView = __webpack_require__(41);
 
 var _EntryInputView2 = _interopRequireDefault(_EntryInputView);
 
@@ -8217,7 +8990,7 @@ var Constants = function () {
 exports.default = Constants;
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8366,7 +9139,7 @@ if (window.dat && !window.dat.guiExtensions) {
 }
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8378,276 +9151,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Math2D = __webpack_require__(8);
-
-var _Region = __webpack_require__(11);
-
-var _Region2 = _interopRequireDefault(_Region);
-
-var _CUBDebug = __webpack_require__(33);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/** RegionFindCallback
- * @callback RegionFindCallback
- * @param {Region} region
- * @returns {Object | Boolean}
- */
-
-/** @typedef Vec2 @property {Number} x @property {Number} y */
-
-/** @typedef Rectangle @property {Vec2} p1 @property {Vec2} p2 @property {Vec2} p3 @property {Vec2} p4 
- * @property {Number} weight @property {Number} weightCapacity @property {Number} stackingCapacity 
- */
-
-var minRegionAxis = _Math2D.smallValue;
-
-var RegionsTree = function () {
-    /** @param {Region} root */
-    function RegionsTree(root) {
-        _classCallCheck(this, RegionsTree);
-
-        this.regions = [root];
-    }
-
-    /** @param {Number} index */
-
-
-    _createClass(RegionsTree, [{
-        key: "Get",
-        value: function Get(index) {
-            return this.regions[index];
-        }
-
-        /** @param {RegionFindCallback} callback @param {*} thisArg */
-
-    }, {
-        key: "Find",
-        value: function Find(callback, thisArg) {
-            var numRegions = this.regions.length;
-
-            for (var iRegion = 0; iRegion < numRegions; iRegion++) {
-                var region = this.regions[iRegion];
-                var search = callback.call(thisArg, region);
-                if (search) return search;
-            }
-
-            return false;
-        }
-
-        /** @param {Region} region * @param {Region} fit * @returns {Boolean} false if region has been deleted */
-
-    }, {
-        key: "Occupy",
-        value: function Occupy(region, fit) {
-            var _regions;
-
-            // Subtracts fit from region and calculates new bounding regions
-            var newRegions = region.Subtract(fit, minRegionAxis);
-
-            // Add new bounding regions if any
-            if (newRegions) (_regions = this.regions).push.apply(_regions, _toConsumableArray(newRegions));
-
-            // Check that region is still valid, otherwise remove it
-            if (region.length < minRegionAxis) {
-                var regionIndex = this.regions.indexOf(region);
-                this.regions.splice(regionIndex, 1);
-                return false;
-            }
-
-            var debugUIDs = [];
-            if (!newRegions) newRegions = [];
-            newRegions.push(region);
-            //console.group('Occupy');
-            newRegions.forEach(function (region) {
-                //console.log(region.ToString());
-                debugUIDs.push((0, _CUBDebug.debugRegion)(region, 0xffff0000, true, -1, true));
-            });
-            //console.groupEnd();
-
-            (0, _CUBDebug.debugClear)(debugUIDs);
-
-            return true;
-        }
-
-        /** @param {Number} width */
-
-    }, {
-        key: "ProcessRegionsPreferredX",
-        value: function ProcessRegionsPreferredX(width) {
-            var regions = this.regions,
-                numRegions = regions.length;
-            //let width = this.container.width;
-
-            for (var iRegion = 0; iRegion < numRegions; iRegion++) {
-                var region = regions[iRegion];
-
-                if (Math.abs(region.x) < _Math2D.smallValue) region.preferredX = 0;else if (Math.abs(region.x + region.width - width) < _Math2D.smallValue) region.preferredX = 1;
-            }
-        }
-
-        /** @param {Number} width @param {Number} height */
-
-    }, {
-        key: "ProcessRegionsMergeExpand",
-        value: function ProcessRegionsMergeExpand(width, height) {
-            var regions = this.regions,
-                numRegions = regions.length;
-
-            var toInt = 1 / _Math2D.smallValue;
-            function coordID(value) {
-                return Math.floor(value * toInt);
-            }
-
-            /** @typedef Level @property {Number} y @property {Array<Rectangle>} rectangles */
-            /** @type {Array<Level>} */
-            var levels = {};
-
-            var neighbours = [],
-                rectangles = [];
-            for (var iRegion = 0; iRegion < numRegions; iRegion++) {
-                var regionA = regions[iRegion];
-
-                if (regionA.weightCapacity > _Math2D.smallValue) {
-                    neighbours.length = 0;
-                    neighbours.push(iRegion);
-
-                    for (var jRegion = iRegion + 1; jRegion < numRegions; jRegion++) {
-                        var regionB = regions[jRegion];
-
-                        if (regionB.weightCapacity > _Math2D.smallValue && Math.abs(regionA.y - regionB.y) < _Math2D.smallValue) {
-                            var intersects = regionA.Intersects(_Math2D.smallValue, regionB);
-                            if (intersects) {
-                                neighbours.push(jRegion);
-                            }
-                        }
-                    }
-
-                    var numNeighbours = neighbours.length;
-                    if (numNeighbours > 1) {
-                        rectangles.length = 0;
-
-                        for (var iNeighbour = 0; iNeighbour < numNeighbours; iNeighbour++) {
-                            var neighbourA = regions[neighbours[iNeighbour]];
-
-                            for (var jNeighbour = iNeighbour + 1; jNeighbour < numNeighbours; jNeighbour++) {
-                                var neighbourB = regions[neighbours[jNeighbour]];
-
-                                var connectedNeighbours = neighbourA.ConnectFloorRects(neighbourB);
-                                rectangles.push.apply(rectangles, _toConsumableArray(connectedNeighbours));
-                            }
-                        }
-
-                        if (rectangles.length > 0) {
-                            var _levels$yCat$rectangl;
-
-                            var yCat = coordID(regionA.y);
-                            if (levels[yCat] === undefined) levels[yCat] = { y: regionA.y, rectangles: [] };
-                            (_levels$yCat$rectangl = levels[yCat].rectangles).push.apply(_levels$yCat$rectangl, rectangles);
-                        }
-                    }
-                }
-            }
-
-            var levelsYCats = Object.keys(levels);
-            for (var iYCat = 0, numYCats = levelsYCats.length; iYCat < numYCats; iYCat++) {
-                /** @type {Level} */
-                var level = levels[levelsYCats[iYCat]];
-                var _rectangles = level.rectangles;
-                var regionY = level.y;
-                var regionHeight = height - regionY;
-
-                (0, _Math2D.reduceRectangles)(_rectangles);
-                for (var iRect = 0, numRects = _rectangles.length; iRect < numRects; iRect++) {
-                    var rect = _rectangles[iRect];
-                    var rx = rect.p1.x,
-                        ry = rect.p1.y;
-                    var rw = rect.p3.x - rx,
-                        rh = rect.p3.y - ry;
-
-                    // Calculate preferred packing side based on center point relative to container
-                    var preferredX = rx.x + rw / 2 < width / 2 ? 0 : 1;
-                    var newRegion = new _Region2.default(rx, regionY, ry, rw, regionHeight, rh, 0);
-                    newRegion.SetWeights(rect.weight, rect.weightCapacity, rect.stackingCapacity);
-                    this.regions.push(newRegion);
-                }
-            }
-        }
-    }, {
-        key: "ProcessRegionsForZeroRegions",
-        value: function ProcessRegionsForZeroRegions() {
-            var regions = this.regions;
-            for (var iRegion = 0; iRegion < regions.length; iRegion++) {
-                var region = regions[iRegion];
-                if (region.width < minRegionAxis || region.height < minRegionAxis || region.length < minRegionAxis) {
-                    regions.splice(iRegion, 1);
-                    iRegion--;
-                }
-            }
-        }
-    }, {
-        key: "ProcessRegionsEnclosed",
-        value: function ProcessRegionsEnclosed() {
-            var regions = this.regions;
-
-            for (var iRegion = 0; iRegion < regions.length; iRegion++) {
-                var regionA = regions[iRegion];
-                var volumeA = regionA.volume;
-
-                for (var jRegion = iRegion + 1; jRegion < regions.length; jRegion++) {
-                    var regionB = regions[jRegion];
-                    var volumeB = regionB.volume;
-
-                    if (volumeA < volumeB) {
-                        // If a A is completely contained within B, remove the A
-                        if (regionB.ContainsRegion(_Math2D.smallValue, regionA)) {
-                            regions.splice(iRegion, 1);
-                            iRegion--;
-                            break;
-                        }
-                    } else {
-                        // If a B is completely contained within A, remove the B
-                        if (regionA.ContainsRegion(_Math2D.smallValue, regionB)) {
-                            regions.splice(jRegion, 1);
-                            jRegion--;
-                        }
-                    }
-                }
-            }
-        }
-
-        /** @param {Function} sortFunction */
-
-    }, {
-        key: "Sort",
-        value: function Sort(sortFunction) {
-            this.regions.sort(sortFunction);
-        }
-    }]);
-
-    return RegionsTree;
-}();
-
-exports.default = RegionsTree;
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _AFitTest = __webpack_require__(76);
+var _AFitTest = __webpack_require__(77);
 
 var _AFitTest2 = _interopRequireDefault(_AFitTest);
 
@@ -8908,7 +9412,7 @@ Debug.app;
 exports.default = Debug;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9040,7 +9544,7 @@ exports.PackedItem = PackedItem;
 exports.PackedContainer = PackedContainer;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9058,7 +9562,7 @@ var _Container = __webpack_require__(7);
 
 var _Container2 = _interopRequireDefault(_Container);
 
-var _ContainerView = __webpack_require__(48);
+var _ContainerView = __webpack_require__(49);
 
 var _ContainerView2 = _interopRequireDefault(_ContainerView);
 
@@ -9151,7 +9655,7 @@ var PackingSpaceView = function () {
 exports.default = PackingSpaceView;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9375,7 +9879,7 @@ var ContainerView = function () {
 exports.default = ContainerView;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9403,11 +9907,11 @@ var _Pool = __webpack_require__(19);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _PackedCargoBoxView = __webpack_require__(82);
+var _PackedCargoBoxView = __webpack_require__(84);
 
 var _PackedCargoBoxView2 = _interopRequireDefault(_PackedCargoBoxView);
 
-var _PackingSpaceView = __webpack_require__(47);
+var _PackingSpaceView = __webpack_require__(48);
 
 var _PackingSpaceView2 = _interopRequireDefault(_PackingSpaceView);
 
@@ -9540,7 +10044,7 @@ var PackResultView = function (_Signaler) {
         _this.animatingViews = [];
 
         if (typeof window.Pizzicato !== 'undefined') {
-            var musipack = new (__webpack_require__(83).default)(_this);
+            var musipack = new (__webpack_require__(85).default)(_this);
         }
         return _this;
     }
@@ -9815,7 +10319,7 @@ var PackResultView = function (_Signaler) {
 exports.default = PackResultView;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10122,7 +10626,7 @@ var DomUI = function (_Signaler) {
 exports.default = DomUI;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10438,7 +10942,7 @@ CargoInput.BoxEntry = _BoxEntry2.default;
 exports.default = CargoInput;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10458,7 +10962,7 @@ var _PackingSpace = __webpack_require__(32);
 
 var _PackingSpace2 = _interopRequireDefault(_PackingSpace);
 
-var _ContainerView = __webpack_require__(48);
+var _ContainerView = __webpack_require__(49);
 
 var _ContainerView2 = _interopRequireDefault(_ContainerView);
 
@@ -10641,7 +11145,7 @@ var PackingSpaceInput = function (_LightDispatcher) {
 exports.default = PackingSpaceInput;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10847,24 +11351,24 @@ var PackerInterface = function (_LightDispatcher) {
 exports.default = PackerInterface;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(55);
+module.exports = __webpack_require__(56);
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var api = __webpack_require__(56).default;
+var api = __webpack_require__(57).default;
 window.FreightPacker = api;
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10876,7 +11380,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Capabilities = __webpack_require__(57);
+var _Capabilities = __webpack_require__(58);
 
 var _Capabilities2 = _interopRequireDefault(_Capabilities);
 
@@ -10884,7 +11388,7 @@ var _App = __webpack_require__(12);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _CargoInput = __webpack_require__(51);
+var _CargoInput = __webpack_require__(52);
 
 var _CargoInput2 = _interopRequireDefault(_CargoInput);
 
@@ -10896,7 +11400,7 @@ var _Utils = __webpack_require__(0);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _PackingSpaceInput = __webpack_require__(52);
+var _PackingSpaceInput = __webpack_require__(53);
 
 var _PackingSpaceInput2 = _interopRequireDefault(_PackingSpaceInput);
 
@@ -10904,7 +11408,7 @@ var _UX = __webpack_require__(22);
 
 var _UX2 = _interopRequireDefault(_UX);
 
-var _PackerInterface = __webpack_require__(53);
+var _PackerInterface = __webpack_require__(54);
 
 var _PackerInterface2 = _interopRequireDefault(_PackerInterface);
 
@@ -10912,7 +11416,7 @@ var _LightDispatcher2 = __webpack_require__(9);
 
 var _LightDispatcher3 = _interopRequireDefault(_LightDispatcher2);
 
-var _Constants = __webpack_require__(42);
+var _Constants = __webpack_require__(44);
 
 var _Constants2 = _interopRequireDefault(_Constants);
 
@@ -10934,7 +11438,7 @@ var utils = {
 	dat: window.dat || __webpack_require__(2).default,
 	Signaler: __webpack_require__(1).default,
 	Utils: __webpack_require__(0).default,
-	Debug: __webpack_require__(45).default,
+	Debug: __webpack_require__(46).default,
 	Config: __webpack_require__(10).default
 };
 
@@ -11088,10 +11592,10 @@ FreightPacker.Packer = _PackerInterface2.default;
 FreightPacker.Constants = _Constants2.default;
 
 exports.default = FreightPacker;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11125,7 +11629,7 @@ var Capabilities = function () {
 exports.default = Capabilities;
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11137,11 +11641,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _UpdateComponent = __webpack_require__(36);
+var _UpdateComponent = __webpack_require__(38);
 
 var _UpdateComponent2 = _interopRequireDefault(_UpdateComponent);
 
-var _RaycastGroup = __webpack_require__(37);
+var _RaycastGroup = __webpack_require__(39);
 
 var _RaycastGroup2 = _interopRequireDefault(_RaycastGroup);
 
@@ -11149,7 +11653,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var keypress = __webpack_require__(59);
+var keypress = __webpack_require__(60);
 
 /**
  * @typedef {Object} IScreen
@@ -11664,7 +12168,7 @@ var Input = function () {
 exports.default = Input;
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12836,7 +13340,7 @@ Combo options available and their defaults:
 }).call(undefined);
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12895,7 +13399,7 @@ var Quality = function () {
 exports.default = Quality;
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13040,7 +13544,7 @@ var Renderer = function () {
 exports.default = Renderer;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14052,7 +14556,7 @@ THREE.ScreenSpacePanning = 0;
 THREE.HorizontalPanning = 1;
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14064,7 +14568,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Controller2 = __webpack_require__(38);
+var _Controller2 = __webpack_require__(40);
 
 var _Controller3 = _interopRequireDefault(_Controller2);
 
@@ -14072,7 +14576,7 @@ var _Camera = __webpack_require__(17);
 
 var _Camera2 = _interopRequireDefault(_Camera);
 
-var _Transform = __webpack_require__(64);
+var _Transform = __webpack_require__(65);
 
 var _Transform2 = _interopRequireDefault(_Transform);
 
@@ -14080,7 +14584,7 @@ var _Utils = __webpack_require__(0);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _EntryInputView = __webpack_require__(39);
+var _EntryInputView = __webpack_require__(41);
 
 var _EntryInputView2 = _interopRequireDefault(_EntryInputView);
 
@@ -14190,7 +14694,7 @@ var HUDView = function (_Controller) {
 exports.default = HUDView;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14272,7 +14776,7 @@ var Transform = function () {
 exports.default = Transform;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14559,7 +15063,7 @@ exports.RotationConstraint = RotationConstraint;
 exports.TranslationConstraint = TranslationConstraint;
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14659,7 +15163,7 @@ var ColorTemplate = function () {
 exports.default = ColorTemplate;
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14823,7 +15327,7 @@ exports.Transition = Transition;
 exports.Slide = Slide;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14965,7 +15469,7 @@ var Visualization = function (_LightDispatcher) {
 exports.default = Visualization;
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15044,7 +15548,7 @@ var User = function (_LightDispatcher) {
 exports.default = User;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15148,7 +15652,7 @@ var Cargo = function (_PackingItem) {
 exports.default = Cargo;
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15226,7 +15730,7 @@ var FloatingShelf = function () {
 exports.default = FloatingShelf;
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15375,7 +15879,7 @@ var Outline = function () {
 exports.default = Outline;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16368,7 +16872,7 @@ exports.default = Outline;
 })();
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16463,7 +16967,7 @@ var Volume = function () {
 exports.default = Volume;
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16476,32 +16980,22 @@ exports.heuristics = exports.pack = exports.Container = exports.Item = undefined
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /** @author chadiik <http://chadiik.com/> */
 
-/**
- * 
- * @param {Container} container 
- * @param {Array<Item>} items
- * @param {Heuristic} heuristic
- */
 var pack = function () {
-    var _ref4 = _asyncToGenerator(function* (container, items, heuristic) {
+    var _ref3 = _asyncToGenerator(function* (container, items, heuristic) {
+
         var cub = new CUB(container);
 
         heuristic.workingSet.SetItems(items);
         heuristic.workingSet.SetPackedContainer(cub.packedContainer);
         heuristic.workingSet.SetRegionsTree(cub.regionsTree);
+        heuristic.workingSet.SetOccupiedRegionsTree(cub.occupiedRegionsTree);
 
-        var fallback = new _HeuRegular2.default();
-        fallback.workingSet.SetItems(items);
-        fallback.workingSet.SetPackedContainer(cub.packedContainer);
-        fallback.workingSet.SetRegionsTree(cub.regionsTree);
-
-        var result = yield cub.Solve(heuristic, fallback);
-
+        var result = yield cub.Solve(heuristic);
         return result;
     });
 
-    return function pack(_x7, _x8, _x9) {
-        return _ref4.apply(this, arguments);
+    return function pack(_x4, _x5, _x6) {
+        return _ref3.apply(this, arguments);
     };
 }();
 
@@ -16511,25 +17005,33 @@ var _Region = __webpack_require__(11);
 
 var _Region2 = _interopRequireDefault(_Region);
 
-var _RegionsTree = __webpack_require__(44);
+var _OccupiedRegion = __webpack_require__(33);
+
+var _OccupiedRegion2 = _interopRequireDefault(_OccupiedRegion);
+
+var _RegionsTree = __webpack_require__(34);
 
 var _RegionsTree2 = _interopRequireDefault(_RegionsTree);
 
+var _StackedRegion = __webpack_require__(80);
+
+var _StackedRegion2 = _interopRequireDefault(_StackedRegion);
+
 var _Components = __webpack_require__(15);
 
-var _PackedComponents = __webpack_require__(46);
+var _PackedComponents = __webpack_require__(47);
 
-var _Heuristic = __webpack_require__(34);
+var _Heuristic = __webpack_require__(36);
 
 var _Heuristic2 = _interopRequireDefault(_Heuristic);
 
-var _CUBDebug = __webpack_require__(33);
+var _CUBDebug = __webpack_require__(35);
 
-var _HeuRegular = __webpack_require__(79);
+var _HeuRegular = __webpack_require__(81);
 
 var _HeuRegular2 = _interopRequireDefault(_HeuRegular);
 
-var _HeuParametric = __webpack_require__(80);
+var _HeuParametric = __webpack_require__(82);
 
 var _HeuParametric2 = _interopRequireDefault(_HeuParametric);
 
@@ -16559,6 +17061,9 @@ var CUB = function () {
         var firstRegion = new _Region2.default(0, 0, 0, container.width, container.height, container.length, 0);
         firstRegion.SetWeights(0, container.weightCapacity, 0);
         this.regionsTree = new _RegionsTree2.default(firstRegion);
+        var firstOccupiedRegion = new _OccupiedRegion2.default(0, 0, 0, container.width, 0, container.length, container, 0, 0);
+        firstOccupiedRegion.SetWeights(0, container.weightCapacity, 0);
+        this.occupiedRegionsTree = new _RegionsTree2.default(firstOccupiedRegion);
     }
 
     /** @param {PackedItem} packedItem @param {Boolean} [harsh] default = false */
@@ -16617,7 +17122,7 @@ var CUB = function () {
                 containerHeight = this.container.height;
 
             // Recalculate preferred insertion side per region (left or right)
-            this.regionsTree.ProcessRegionsPreferredX(containerWidth);
+            // this.regionsTree.ProcessRegionsPreferredX(containerWidth);
 
             // Merge and expand free regions (can span several packed item tops)
             this.regionsTree.ProcessRegionsMergeExpand(containerWidth, containerHeight);
@@ -16632,7 +17137,7 @@ var CUB = function () {
             this.regionsTree.ProcessRegionsEnclosed();
 
             // Recalculate preferred insertion side per region (left or right)
-            this.regionsTree.ProcessRegionsPreferredX(containerWidth);
+            //this.regionsTree.ProcessRegionsPreferredX(containerWidth);
 
             // Sort by z (first) and volume (second)
             this.regionsTree.Sort(_Region2.default.SortDeepestSmallest);
@@ -16645,7 +17150,6 @@ var CUB = function () {
         value: function FitUsingHeuristic(item, heuristic) {
 
             var result = heuristic.Fit(item);
-
             if (result) {
                 var placement = result.packedRegion;
                 placement.SetWeights(item.weight, 0, item.stackingCapacity);
@@ -16653,9 +17157,12 @@ var CUB = function () {
                 // Create a new packed item
                 var packedItem = new _PackedComponents.PackedItem(item, placement.x, placement.y, placement.z, placement.width, placement.height, placement.length, result.orientation);
 
+                var packedRegion = new _OccupiedRegion2.default(packedItem.x, packedItem.y, packedItem.z, packedItem.packedWidth, packedItem.packedHeight, packedItem.packedLength, packedItem.ref, 0);
+                packedRegion.SetWeights(packedItem.ref.weight, 0, packedItem.ref.stackingCapacity);
                 // Reserve the tested sub region: regionFitTest from the containing region: region
-                var regionRemains = this.regionsTree.Occupy(result.containingRegion, placement);
-
+                var regionRemains = this.regionsTree.Occupy(result.containingRegion, placement, packedItem);
+                var OccupiedRemains = this.occupiedRegionsTree.AddRegion(packedRegion);
+                // console.log(this.occupiedRegionsTree.regions, 'Occupied Regions')                    
                 return packedItem;
             }
 
@@ -16667,15 +17174,15 @@ var CUB = function () {
     }, {
         key: "Solve",
         value: function () {
-            var _ref = _asyncToGenerator(function* (heuristic, fallback) {
+            var _ref = _asyncToGenerator(function* (heuristic) {
 
                 /** @param {Heuristic} workingHeuristic @param {Boolean} final */
                 var fitWith = function () {
                     var _ref2 = _asyncToGenerator(function* (workingHeuristic, final) {
                         while (nextItem = yield workingHeuristic.NextItem()) {
-                            scope.ProcessRegions();
-                            packedContainer.packedItems.sort(_PackedComponents.PackedItem.Sort);
 
+                            scope.ProcessRegions();
+                            //packedContainer.packedItems.sort(PackedItem.Sort);
                             // Try to pack item
                             var packedItem = scope.FitUsingHeuristic(nextItem, workingHeuristic);
 
@@ -16689,7 +17196,7 @@ var CUB = function () {
                         }
                     });
 
-                    return function fitWith(_x3, _x4) {
+                    return function fitWith(_x2, _x3) {
                         return _ref2.apply(this, arguments);
                     };
                 }();
@@ -16697,7 +17204,7 @@ var CUB = function () {
                 var scope = this;
                 var packedContainer = this.packedContainer;
 
-                var log = { successful: 0, failed: 0, heuristic: 0, fallback: 0 };
+                var log = { successful: 0, failed: 0, heuristic: 0 };
 
                 // Helper function
                 /** @param {Item} item @param {Heuristic} workingHeuristic @param {Boolean} final */
@@ -16714,95 +17221,25 @@ var CUB = function () {
                     packedContainer.Pack(packedItem);
                     packedItem.ref.quantity--;
 
-                    if (workingHeuristic === heuristic) log.heuristic++;else log.fallback++;
+                    if (workingHeuristic === heuristic) log.heuristic++;
 
                     log.successful++;
                 }
 
                 var nextItem = void 0;
 
-                yield fitWith(heuristic, false);
-                if (fallback) {
-                    yield fitWith(fallback, true);
-                }
+                yield fitWith(heuristic, true);
+                packedContainer.packedItems.sort(_PackedComponents.PackedItem.Sort);
+                //console.log('Solved it:', log);
 
                 return packedContainer;
             });
 
-            function Solve(_x, _x2) {
+            function Solve(_x) {
                 return _ref.apply(this, arguments);
             }
 
             return Solve;
-        }()
-
-        /** @param {Heuristic} heuristic @param {Heuristic} fallback */
-
-    }, {
-        key: "Solve1",
-        value: function () {
-            var _ref3 = _asyncToGenerator(function* (heuristic, fallback) {
-                var packedContainer = this.packedContainer;
-
-                // Helper function
-                /** @param {Item} item */
-                function unpackItem(item) {
-                    packedContainer.Unpack(item);
-                    heuristic.Unpack(item);
-
-                    if (fallback) fallback.Unpack(item);
-                }
-
-                // Helper function
-                /** @param {PackedItem} packedItem */
-                function packItem(packedItem) {
-                    packedContainer.Pack(packedItem);
-                    packedItem.ref.quantity--;
-                }
-
-                var log = { successful: 0, failed: 0, heuristic: 0, fallback: 0 };
-
-                var nextItem = void 0;
-                while (nextItem = yield heuristic.NextItem()) {
-
-                    this.ProcessRegions();
-                    packedContainer.packedItems.sort(_PackedComponents.PackedItem.Sort);
-
-                    // Try to pack item
-                    var packedItem = this.FitUsingHeuristic(nextItem, heuristic);
-                    if (packedItem) {
-                        log.heuristic++;
-                    } else if (fallback) {
-                        // Fallback if failed
-                        // nextItem = await fallback.NextItem();
-                        packedItem = this.FitUsingHeuristic(nextItem, fallback);
-
-                        log.fallback++;
-                    }
-
-                    if (packedItem === false) {
-
-                        unpackItem(nextItem);
-                        log.failed++;
-                    } else {
-
-                        packItem(packedItem);
-                        log.successful++;
-                    }
-
-                    /**/yield (0, _CUBDebug.sleep)(200);
-                }
-
-                console.log('Solved:', log);
-
-                return packedContainer;
-            });
-
-            function Solve1(_x5, _x6) {
-                return _ref3.apply(this, arguments);
-            }
-
-            return Solve1;
         }()
     }]);
 
@@ -16815,7 +17252,7 @@ exports.pack = pack;
 exports.heuristics = heuristics;
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16827,11 +17264,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Item = __webpack_require__(77);
+var _Item = __webpack_require__(78);
 
 var _Item2 = _interopRequireDefault(_Item);
 
-var _Container = __webpack_require__(78);
+var _Container = __webpack_require__(79);
 
 var _Container2 = _interopRequireDefault(_Container);
 
@@ -16924,7 +17361,7 @@ var AFitTest = function () {
 exports.default = AFitTest;
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17020,7 +17457,7 @@ var Item = function () {
 exports.default = Item;
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17052,7 +17489,84 @@ function Container(id, width, length, height) {
 exports.default = Container;
 
 /***/ }),
-/* 79 */
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+        value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _OccupiedRegion = __webpack_require__(33);
+
+var _OccupiedRegion2 = _interopRequireDefault(_OccupiedRegion);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var maxWeightValue = Number.MAX_SAFE_INTEGER;
+
+var StackedRegions = function (_OccupiedRegions) {
+        _inherits(StackedRegions, _OccupiedRegions);
+
+        function StackedRegions(x, y, z, width, height, length, item, preferredX) {
+                var _ret;
+
+                _classCallCheck(this, StackedRegions);
+
+                var _this = _possibleConstructorReturn(this, (StackedRegions.__proto__ || Object.getPrototypeOf(StackedRegions)).call(this));
+
+                _this.Set(x, y, z, width, height, length, item, preferredX);
+                _this.SetWeights(0, maxWeightValue, maxWeightValue);
+                _this.stackCount = 1;
+                return _ret = _this, _possibleConstructorReturn(_this, _ret);
+        }
+
+        _createClass(StackedRegions, [{
+                key: "SetStack",
+                value: function SetStack(value) {
+                        this.stackCount = this.stackCount + value;
+                }
+        }, {
+                key: "UpdateStack",
+                value: function UpdateStack(x, y, z, width, height, length, item, count, preferredX) {
+                        this.Set(x, y, z, width, height, length, item, preferredX);
+                        this.SetStack(count);
+                }
+        }, {
+                key: "Set",
+                value: function Set(x, y, z, width, height, length, item, preferredX) {
+                        this.x = x;this.y = y;this.z = z;
+                        this.width = width;this.height = height;this.length = length;
+                        this.ref = item;
+                        this.preferredX = preferredX;
+                        return this;
+                }
+        }, {
+                key: "SetWeights",
+                value: function SetWeights(weight, weightCapacity, stackingCapacity) {
+                        this.weight = weight;
+                        this.weightCapacity = weightCapacity;
+                        this.stackingCapacity = stackingCapacity;
+                }
+        }]);
+
+        return StackedRegions;
+}(_OccupiedRegion2.default);
+
+exports.default = StackedRegions;
+
+/***/ }),
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17068,7 +17582,7 @@ var _get = function get(object, property, receiver) { if (object === null) objec
 
 var _Math2D = __webpack_require__(8);
 
-var _Heuristic2 = __webpack_require__(34);
+var _Heuristic2 = __webpack_require__(36);
 
 var _Heuristic3 = _interopRequireDefault(_Heuristic2);
 
@@ -17125,6 +17639,23 @@ var HeuRegularSet = function (_Heuristic$WorkingSet) {
 
             this.items.sort(_Components.Item.VolumeSort);
         }
+    }, {
+        key: "Fit",
+        value: function Fit() {
+            console.log('Stacked Regions in HeuRegular');
+            console.log(this.stackedRegionsTree);
+            var result = this.regionsTree.Find(this.FitFunction, this);
+            return result;
+        }
+    }, {
+        key: "OnStack",
+        value: function OnStack(Topregion, stack) {
+            for (var iRegion = 0; iRegion < stack.regions.length; iRegion++) {
+                var checkRegionTop = tempRegion.OnTopRegion(_Math2D.smallValue, Topregion.region, stack.regions[iRegion]);
+                if (checkRegionTop) return stack.regions[iRegion].stackCount;
+            }
+            return 0;
+        }
 
         /** @param {Region} region */
 
@@ -17139,7 +17670,6 @@ var HeuRegularSet = function (_Heuristic$WorkingSet) {
                 var dimensions = item.GetOrientedDimensions(orientation);
 
                 // Fit test (success: Region, failure: false)
-
                 var regionFitTest = region.FitTest(_Math2D.smallValue, dimensions[0], dimensions[1], dimensions[2], item.weight, item.grounded, tempRegion);
                 if (regionFitTest !== false) {
 
@@ -17196,7 +17726,7 @@ HeuRegular.WorkingSet = HeuRegularSet;
 exports.default = HeuRegular;
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17212,7 +17742,7 @@ var _get = function get(object, property, receiver) { if (object === null) objec
 
 var _Math2D = __webpack_require__(8);
 
-var _Heuristic2 = __webpack_require__(34);
+var _Heuristic2 = __webpack_require__(36);
 
 var _Heuristic3 = _interopRequireDefault(_Heuristic2);
 
@@ -17221,6 +17751,10 @@ var _Components = __webpack_require__(15);
 var _Region = __webpack_require__(11);
 
 var _Region2 = _interopRequireDefault(_Region);
+
+var _RegionsTree = __webpack_require__(34);
+
+var _RegionsTree2 = _interopRequireDefault(_RegionsTree);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17298,6 +17832,8 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
         var _this2 = _possibleConstructorReturn(this, (_ref = HeuParametric1Set.__proto__ || Object.getPrototypeOf(HeuParametric1Set)).call.apply(_ref, [this].concat(args)));
 
         _this2.params;
+        _this2.ItemIDS = [];
+
         return _this2;
     }
 
@@ -17309,7 +17845,7 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
         value: function SetItems(items) {
             _get(HeuParametric1Set.prototype.__proto__ || Object.getPrototypeOf(HeuParametric1Set.prototype), "SetItems", this).call(this, items);
 
-            this.items.sort(_Components.Item.VolumeSort);
+            //this.items.sort(Item.VolumeSort);
 
             this.minDimensions = _Components.Item.GetMinDimensions(this.items);
             this.minDimensionsNoWasteFactor = [1, 1, 1];
@@ -17329,9 +17865,13 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
 
             // Try out a recursive deep rate fit
             var containerLength = this.packedContainer.container.length;
+            var containerHeight = this.packedContainer.container.height;
+            var containerWidth = this.packedContainer.container.width;
             var minDimensions = this.minDimensions;
             var minDimensionsNoWasteFactor = this.minDimensionsNoWasteFactor;
             var minZScore = 1 - (fit.z + fit.length) / containerLength; // 0-1
+            var minYScore = 1 - (fit.y + fit.height) / containerHeight; // 0-1
+            var minXScore = 1 - (fit.x + fit.width) / containerWidth; // 0-1
 
             // new regions usability score
             var minWasteScore = 1; // have completely filled the region if newRegions.length === 0
@@ -17343,9 +17883,9 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
                     var scoreW = 0,
                         scoreH = 0,
                         scoreL = 0;
-                    if (region.width >= minDimensions[0] && region.width - minDimensions[0] < minDimensions[0] * minDimensionsNoWasteFactor[0]) scoreW += 1;
-                    if (region.height >= minDimensions[1] && region.width - minDimensions[1] < minDimensions[1] * minDimensionsNoWasteFactor[1]) scoreH += 1;
-                    if (region.length >= minDimensions[2] && region.width - minDimensions[2] < minDimensions[2] * minDimensionsNoWasteFactor[2]) scoreL += 1;
+                    if (region.width >= minDimensions[0] && region.height - minDimensions[0] < minDimensions[0] * minDimensionsNoWasteFactor[0]) scoreW += 1;
+                    if (region.height >= minDimensions[1] && region.height - minDimensions[1] < minDimensions[1] * minDimensionsNoWasteFactor[1]) scoreH += 1;
+                    if (region.length >= minDimensions[2] && region.height - minDimensions[2] < minDimensions[2] * minDimensionsNoWasteFactor[2]) scoreL += 1;
 
                     minWasteScore += scoreW * .5 + scoreH * .3 + scoreL * .2;
                 }
@@ -17354,7 +17894,11 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
 
             var minZWeight = this.params.scoring.minZ;
             var minWasteWeight = this.params.scoring.minWaste;
-            var score = minZScore * minZWeight + minWasteScore * minWasteWeight;
+            var score = minZScore; //* minZWeight + minWasteScore * minWasteWeight;
+            //let scoreX = minXScore * minZWeight + minWasteScore * minWasteWeight;
+            // if(scoreX > scoreZ) score = scoreX;
+            // else score = scoreZ;
+
             return score;
         }
 
@@ -17363,10 +17907,8 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
     }, {
         key: "FitFunction",
         value: function FitFunction(region) {
-
-            var regionScoreTable = this.regionScoreTable;
-
             var item = this.workingItem;
+
             var validOrientations = item.validOrientations;
 
             if (region.volume > item.volume) {
@@ -17374,11 +17916,9 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
 
                 orientationScoreTable.length = 0;
                 for (var iOrient = 0; iOrient < validOrientations.length; iOrient++) {
-                    var orientation = validOrientations[iOrient];
-
+                    var orientation = validOrientations[iOrient]; //[0,5]
                     var dimensions = item.GetOrientedDimensions(orientation);
-
-                    var regionFitTest = region.FitTest(_Math2D.smallValue, dimensions[0], dimensions[1], dimensions[2], item.weight, item.grounded);
+                    var regionFitTest = region.FitTest(_Math2D.smallValue, dimensions[0], dimensions[1], dimensions[2], item.weight, item.grounded, this.occupiedRegionsTree.regions, item.category);
 
                     if (regionFitTest !== false) {
 
@@ -17396,7 +17936,7 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
                 if (orientationScoreTable.length > 0) {
                     orientationScoreTable.sort(sortByN);
                     var regionScore = orientationScoreTable.pop();
-                    regionScoreTable.push(regionScore);
+                    if (regionScore) this.regionScoreTable.push(regionScore);
                 }
             }
 
@@ -17407,25 +17947,29 @@ var HeuParametric1Set = function (_Heuristic$WorkingSet) {
 
     }, {
         key: "Fit",
-        value: function Fit() {
-
-            this.regionsTree.Find(this.FitFunction, this);
+        value: function Fit(ItemIDs) {
+            this.ItemIDS = ItemIDs;
+            var numRegions = this.regionsTree.regions.length;
+            for (var iRegion = 0; iRegion < numRegions; iRegion++) {
+                var region = this.regionsTree.regions[iRegion];
+                this.FitFunction(region);
+            }
 
             if (this.regionScoreTable.length > 0) {
 
                 this.regionScoreTable.sort(sortByN);
                 var highestScore = this.regionScoreTable.pop();
-
                 var containingRegion = highestScore.region,
-                    orientation = this.workingItem.validOrientations[highestScore.orientation];
+                    orientation = highestScore.orientation;
                 var dimensions = this.workingItem.GetOrientedDimensions(orientation);
 
                 // Fit test (success: Region, failure: false)
-                var regionFitTest = containingRegion.FitTest(_Math2D.smallValue, dimensions[0], dimensions[1], dimensions[2], this.workingItem.weight, this.workingItem.grounded);
+                var regionFitTest = containingRegion.FitTest(_Math2D.smallValue, dimensions[0], dimensions[1], dimensions[2], this.workingItem.weight, this.workingItem.grounded, this.occupiedRegionsTree.regions, this.workingItem.category);
 
                 if (regionFitTest !== false) {
 
                     var result = new _Heuristic3.default.Result(containingRegion, regionFitTest, orientation);
+                    this.regionScoreTable = [];
                     return result;
                 }
             }
@@ -17441,13 +17985,15 @@ var HeuParametric1 = function (_Heuristic) {
     _inherits(HeuParametric1, _Heuristic);
 
     /** @param {HeuParametric1Params} params */
-    function HeuParametric1(params) {
+    function HeuParametric1(params, ItemIDs) {
         _classCallCheck(this, HeuParametric1);
 
         /** @type {HeuParametric1Set} */
         var _this3 = _possibleConstructorReturn(this, (HeuParametric1.__proto__ || Object.getPrototypeOf(HeuParametric1)).call(this, params || new HeuParametric1Params(), HeuParametric1Set));
 
         _this3.workingSet;
+        _this3.ItemIDS = ItemIDs;
+
         return _this3;
     }
 
@@ -17459,9 +18005,8 @@ var HeuParametric1 = function (_Heuristic) {
         value: function Fit(item) {
             var result = false;
             var validItem = this.workingSet.SetWorkingItem(item);
-
             if (validItem) {
-                result = this.workingSet.Fit();
+                result = this.workingSet.Fit(this.ItemIDS);
             }
 
             return result;
@@ -17477,7 +18022,7 @@ HeuParametric1.WorkingSet = HeuParametric1Set;
 exports.default = HeuParametric1;
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17501,7 +18046,7 @@ var _CargoList = __webpack_require__(31);
 
 var _CargoList2 = _interopRequireDefault(_CargoList);
 
-var _PackingSpaceView = __webpack_require__(47);
+var _PackingSpaceView = __webpack_require__(48);
 
 var _PackingSpaceView2 = _interopRequireDefault(_PackingSpaceView);
 
@@ -17517,11 +18062,11 @@ var _Utils = __webpack_require__(0);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _PackResultView = __webpack_require__(49);
+var _PackResultView = __webpack_require__(50);
 
 var _PackResultView2 = _interopRequireDefault(_PackResultView);
 
-var _UpdateComponent = __webpack_require__(36);
+var _UpdateComponent = __webpack_require__(38);
 
 var _UpdateComponent2 = _interopRequireDefault(_UpdateComponent);
 
@@ -17533,11 +18078,11 @@ var _BoxEntry = __webpack_require__(5);
 
 var _BoxEntry2 = _interopRequireDefault(_BoxEntry);
 
-var _DomUI = __webpack_require__(50);
+var _DomUI = __webpack_require__(51);
 
 var _DomUI2 = _interopRequireDefault(_DomUI);
 
-var _OrthoviewsNavigator = __webpack_require__(84);
+var _OrthoviewsNavigator = __webpack_require__(86);
 
 var _OrthoviewsNavigator2 = _interopRequireDefault(_OrthoviewsNavigator);
 
@@ -17788,7 +18333,7 @@ var View = function () {
 exports.default = View;
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17941,7 +18486,7 @@ var PackedCargoBoxView = function (_CargoBoxView) {
 exports.default = PackedCargoBoxView;
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17953,7 +18498,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _PackResultView = __webpack_require__(49);
+var _PackResultView = __webpack_require__(50);
 
 var _PackResultView2 = _interopRequireDefault(_PackResultView);
 
@@ -18248,7 +18793,7 @@ var Musipack = function () {
 exports.default = Musipack;
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18276,7 +18821,7 @@ var _CargoListView = __webpack_require__(23);
 
 var _CargoListView2 = _interopRequireDefault(_CargoListView);
 
-var _NaNRecovery = __webpack_require__(85);
+var _NaNRecovery = __webpack_require__(87);
 
 var _NaNRecovery2 = _interopRequireDefault(_NaNRecovery);
 
@@ -18416,7 +18961,7 @@ var OrthoviewsNavigator = function () {
 exports.default = OrthoviewsNavigator;
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

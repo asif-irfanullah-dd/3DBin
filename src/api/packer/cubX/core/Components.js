@@ -19,8 +19,9 @@ class Item{
      * @param {Number} stackingCapacity 
      * @param {Boolean} grounded 
      */
-    constructor(id, width, height, length, weight, quantity, validOrientations, stackingCapacity, grounded){
+    constructor(id, label, width, height, length, weight, quantity, validOrientations, stackingCapacity, grounded){
         this.id = id;
+        this.category = label,
         this.width = width;
         this.height = height;
         this.length = length;
@@ -45,9 +46,7 @@ class Item{
             let vo = value[i];
             let orientation = (typeof vo === typeofNumber) ? vo : orientations.indexOf(vo.toLowerCase());
             if(orientation !== -1) validOrientations.push(orientation);
-        }
-        console.log(validOrientations.Length);
-
+        }   
         if(validOrientations.length === 0) validOrientations[0] = 'xyz' || orientations[0];
 
         this[_validOrientations] = validOrientations;
